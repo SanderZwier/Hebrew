@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblical Hebrew Practice</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Biblical Hebrew Practice</h1>
+      <div class="header-controls">
+        <div class="nikkud-toggle">
+          <label class="toggle-label" for="nikkud-switch">Nikkud</label>
+          <label class="switch">
+            <input type="checkbox" id="nikkud-switch" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="score-display" id="score-display">
+          <span class="score-correct" id="header-correct">0</span>
+          /
+          <span class="score-total" id="header-total">0</span>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <button class="nav-btn active" data-section="home">Home</button>
+      <button class="nav-btn" data-section="letter-recog">Letters</button>
+      <button class="nav-btn" data-section="vocab">Vocabulary</button>
+      <button class="nav-btn" data-section="letter-quiz">Quiz</button>
+      <button class="nav-btn" data-section="reference">Reference</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="section-home" class="section active">
+      <div class="home-hero">
+        <p class="home-hebrew">בְּרֵאשִׁית</p>
+        <p class="home-subtitle">In the beginning...</p>
+      </div>
+
+      <div class="mode-cards">
+        <button class="mode-card" data-goto="letter-recog">
+          <span class="mode-icon">א</span>
+          <h3>Letter Recognition</h3>
+          <p>See a Hebrew letter and identify its name</p>
+        </button>
+        <button class="mode-card" data-goto="vocab">
+          <span class="mode-icon">ד</span>
+          <h3>Vocabulary</h3>
+          <p>Practice Biblical Hebrew words with flashcards</p>
+        </button>
+        <button class="mode-card" data-goto="letter-quiz">
+          <span class="mode-icon">ש</span>
+          <h3>Letter Quiz</h3>
+          <p>Match letter names to Hebrew characters</p>
+        </button>
+      </div>
+
+      <div class="problem-areas" id="problem-areas" style="display:none">
+        <h3>Focus Areas</h3>
+        <p class="problem-hint">These items need more practice:</p>
+        <ul id="problem-list"></ul>
+      </div>
+
+      <div class="stats-summary" id="stats-summary">
+        <h3>Your Progress</h3>
+        <div class="stats-grid" id="stats-grid"></div>
+      </div>
+    </section>
+
+    <!-- LETTER RECOGNITION -->
+    <section id="section-letter-recog" class="section">
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <h2>Letter Recognition</h2>
+          <div class="quiz-score">
+            <span id="lr-correct">0</span> / <span id="lr-total">0</span>
+          </div>
+        </div>
+
+        <div class="quiz-prompt">
+          <div class="hebrew-large" id="lr-letter"></div>
+        </div>
+
+        <div class="quiz-choices" id="lr-choices"></div>
+
+        <div class="quiz-feedback" id="lr-feedback"></div>
+
+        <div class="streak-display" id="lr-streak"></div>
+      </div>
+    </section>
+
+    <!-- VOCABULARY FLASHCARDS -->
+    <section id="section-vocab" class="section">
+      <div class="vocab-container">
+        <div class="quiz-header">
+          <h2>Vocabulary</h2>
+          <div class="quiz-score">
+            <span id="vocab-correct">0</span> / <span id="vocab-total">0</span>
+          </div>
+        </div>
+
+        <div class="category-filter">
+          <label for="category-select">Category:</label>
+          <select id="category-select">
+            <option value="all">All</option>
+          </select>
+        </div>
+
+        <div class="flashcard-wrapper">
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-front" id="flashcard-front">
+              <div class="hebrew-large" id="vocab-hebrew"></div>
+              <p class="flip-hint">Tap to reveal</p>
+            </div>
+            <div class="flashcard-back" id="flashcard-back">
+              <div class="vocab-english" id="vocab-english"></div>
+              <div class="vocab-transliteration" id="vocab-transliteration"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vocab-actions" id="vocab-actions" style="display:none">
+          <button class="btn btn-know" id="btn-know">Know it</button>
+          <button class="btn btn-learning" id="btn-learning">Still learning</button>
+        </div>
+
+        <div class="vocab-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="vocab-progress-fill"></div>
+          </div>
+          <p class="progress-text" id="vocab-progress-text"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LETTER QUIZ -->
+    <section id="section-letter-quiz" class="section">
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <h2>Letter Quiz</h2>
+          <div class="quiz-score">
+            <span id="lq-correct">0</span> / <span id="lq-total">0</span>
+          </div>
+        </div>
+
+        <div class="quiz-prompt">
+          <div class="letter-name-prompt" id="lq-name"></div>
+          <p class="quiz-instruction">Pick the correct Hebrew letter</p>
+        </div>
+
+        <div class="quiz-choices hebrew-choices" id="lq-choices"></div>
+
+        <div class="quiz-feedback" id="lq-feedback"></div>
+
+        <div class="streak-display" id="lq-streak"></div>
+      </div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section id="section-reference" class="section">
+      <div class="reference-container">
+        <h2>Hebrew Alphabet</h2>
+        <div class="ref-table-wrapper">
+          <table class="ref-table" id="ref-alphabet-table">
+            <thead>
+              <tr>
+                <th>Letter</th>
+                <th>Name</th>
+                <th>Sound</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="ref-alphabet-body"></tbody>
+          </table>
+        </div>
+
+        <h2>Vowel Points (Nikkud)</h2>
+        <div class="ref-table-wrapper">
+          <table class="ref-table" id="ref-nikkud-table">
+            <thead>
+              <tr>
+                <th>Example</th>
+                <th>Name</th>
+                <th>Sound</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="ref-nikkud-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
