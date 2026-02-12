@@ -20,6 +20,7 @@
     vocabKnown: {},
     streaks: { letterRecog: 0, letterQuiz: 0 },
     currentCategory: "all",
+    letterRecogFilter: "letters",
     flashcardFlipped: false,
     currentVocabItem: null,
     answering: false
@@ -188,13 +189,17 @@
 
     allMistakes.forEach(function (entry) {
       var id = entry[0];
-      // Find the item in letters or vocab
+      // Find the item in letters, nikkud, or vocab
       var letter = HEBREW_LETTERS.find(function (l) { return l.id === id; });
+      var nikkud = NIKKUD.find(function (n) { return n.id === id; });
       var word = VOCABULARY.find(function (w) { return w.id === id; });
       var li = document.createElement("li");
       if (letter) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(letter.letter) + '</span> ' +
           '<span class="problem-name">' + letter.name + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+      } else if (nikkud) {
+        li.innerHTML = '<span class="problem-hebrew">' + nikkud.example + '</span> ' +
+          '<span class="problem-name">' + nikkud.name + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
       } else if (word) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(word.hebrew) + '</span> ' +
           '<span class="problem-name">' + word.english + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
@@ -205,15 +210,44 @@
 
   // ─── Letter Recognition ───────────────────────────────────
 
+  // Build a unified pool item from a nikkud entry so it can be
+  // mixed with letter items in the same quiz engine.
+  function nikkudToQuizItem(n) {
+    return {
+      id: n.id,
+      letter: n.example,
+      name: n.name,
+      sound: n.sound,
+      _isNikkud: true
+    };
+  }
+
+  function getLetterRecogPool() {
+    var filter = state.letterRecogFilter;
+    if (filter === "letters") {
+      return HEBREW_LETTERS.filter(function (l) { return !l.isFinal; });
+    }
+    if (filter === "sofit") {
+      return HEBREW_LETTERS.filter(function (l) { return l.isFinal; });
+    }
+    if (filter === "nikkud") {
+      return NIKKUD.map(nikkudToQuizItem);
+    }
+    // "all"
+    return HEBREW_LETTERS.concat(NIKKUD.map(nikkudToQuizItem));
+  }
+
   function nextLetterRecog() {
     state.answering = false;
     var feedback = document.getElementById("lr-feedback");
     feedback.textContent = "";
     feedback.className = "quiz-feedback";
 
-    var nonFinal = HEBREW_LETTERS.filter(function (l) { return !l.isFinal; });
-    var chosen = pickWeighted(nonFinal, state.trackers.letterRecog);
-    var distractors = pickDistractors(chosen, nonFinal, 3);
+    var pool = getLetterRecogPool();
+    if (pool.length < 4) return; // need at least 4 items for choices
+
+    var chosen = pickWeighted(pool, state.trackers.letterRecog);
+    var distractors = pickDistractors(chosen, pool, 3);
     var options = shuffle([chosen].concat(distractors));
 
     document.getElementById("lr-letter").textContent = displayHebrew(chosen.letter);
@@ -505,6 +539,12 @@
     document.getElementById("flashcard").addEventListener("click", flipFlashcard);
     document.getElementById("btn-know").addEventListener("click", handleVocabKnow);
     document.getElementById("btn-learning").addEventListener("click", handleVocabLearning);
+
+    // Letter recognition filter
+    document.getElementById("lr-filter").addEventListener("change", function (e) {
+      state.letterRecogFilter = e.target.value;
+      nextLetterRecog();
+    });
 
     // Category filter
     populateCategories();
