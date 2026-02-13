@@ -10,19 +10,24 @@
     scores: {
       letterRecog: { correct: 0, total: 0 },
       vocab: { correct: 0, total: 0 },
-      letterQuiz: { correct: 0, total: 0 }
+      letterQuiz: { correct: 0, total: 0 },
+      psalms: { correct: 0, total: 0 }
     },
     trackers: {
       letterRecog: {},
       vocab: {},
-      letterQuiz: {}
+      letterQuiz: {},
+      psalms: {}
     },
     vocabKnown: {},
+    psalmsKnown: {},
     streaks: { letterRecog: 0, letterQuiz: 0 },
     currentCategory: "all",
     letterRecogFilter: "letters",
     flashcardFlipped: false,
     currentVocabItem: null,
+    psFlipped: false,
+    currentPsalm: null,
     answering: false
   };
 
@@ -93,7 +98,8 @@
       localStorage.setItem("hebrew-app-state", JSON.stringify({
         scores: state.scores,
         trackers: state.trackers,
-        vocabKnown: state.vocabKnown
+        vocabKnown: state.vocabKnown,
+        psalmsKnown: state.psalmsKnown
       }));
     } catch (e) { /* storage full or unavailable */ }
   }
@@ -106,6 +112,10 @@
         if (data.scores) state.scores = data.scores;
         if (data.trackers) state.trackers = data.trackers;
         if (data.vocabKnown) state.vocabKnown = data.vocabKnown;
+        if (data.psalmsKnown) state.psalmsKnown = data.psalmsKnown;
+        // Ensure new keys exist for older saved states
+        if (!state.scores.psalms) state.scores.psalms = { correct: 0, total: 0 };
+        if (!state.trackers.psalms) state.trackers.psalms = {};
       }
     } catch (e) { /* corrupt data, start fresh */ }
   }
@@ -181,6 +191,7 @@
     if (name === "letter-recog") nextLetterRecog();
     if (name === "vocab") nextVocab();
     if (name === "letter-quiz") nextLetterQuiz();
+    if (name === "psalms") nextPsalm();
     if (name === "reference") renderReference();
     if (name === "home") renderHome();
 
@@ -191,8 +202,8 @@
 
   function updateHeaderScore() {
     var s = state.scores;
-    var correct = s.letterRecog.correct + s.vocab.correct + s.letterQuiz.correct;
-    var total = s.letterRecog.total + s.vocab.total + s.letterQuiz.total;
+    var correct = s.letterRecog.correct + s.vocab.correct + s.letterQuiz.correct + (s.psalms ? s.psalms.correct : 0);
+    var total = s.letterRecog.total + s.vocab.total + s.letterQuiz.total + (s.psalms ? s.psalms.total : 0);
     document.getElementById("header-correct").textContent = correct;
     document.getElementById("header-total").textContent = total;
   }
@@ -206,16 +217,18 @@
     var pctLR = s.letterRecog.total ? Math.round(s.letterRecog.correct / s.letterRecog.total * 100) : 0;
     var pctV = s.vocab.total ? Math.round(s.vocab.correct / s.vocab.total * 100) : 0;
     var pctLQ = s.letterQuiz.total ? Math.round(s.letterQuiz.correct / s.letterQuiz.total * 100) : 0;
+    var pctPS = s.psalms && s.psalms.total ? Math.round(s.psalms.correct / s.psalms.total * 100) : 0;
 
     grid.innerHTML =
       '<div class="stat-card"><div class="stat-value">' + pctLR + '%</div><div class="stat-label">Letters</div></div>' +
       '<div class="stat-card"><div class="stat-value">' + pctV + '%</div><div class="stat-label">Vocab</div></div>' +
-      '<div class="stat-card"><div class="stat-value">' + pctLQ + '%</div><div class="stat-label">Quiz</div></div>';
+      '<div class="stat-card"><div class="stat-value">' + pctLQ + '%</div><div class="stat-label">Quiz</div></div>' +
+      '<div class="stat-card"><div class="stat-value">' + pctPS + '%</div><div class="stat-label">Psalms</div></div>';
 
     // Problem areas — combine all trackers
     var allMistakes = [];
     var combined = {};
-    ["letterRecog", "vocab", "letterQuiz"].forEach(function (mode) {
+    ["letterRecog", "vocab", "letterQuiz", "psalms"].forEach(function (mode) {
       Object.entries(state.trackers[mode]).forEach(function (e) {
         var id = e[0], d = e[1];
         if (!combined[id] || combined[id].weight < d.weight) {
@@ -246,6 +259,7 @@
       var letter = HEBREW_LETTERS.find(function (l) { return l.id === id; });
       var nikkud = NIKKUD.find(function (n) { return n.id === id; });
       var word = VOCABULARY.find(function (w) { return w.id === id; });
+      var psalm = PSALMS_SENTENCES.find(function (p) { return p.id === id; });
       var li = document.createElement("li");
       if (letter) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(letter.letter) + '</span> ' +
@@ -256,6 +270,9 @@
       } else if (word) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(word.hebrew) + '</span> ' +
           '<span class="problem-name">' + word.english + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+      } else if (psalm) {
+        li.innerHTML = '<span class="problem-hebrew">' + psalm.reference + '</span> ' +
+          '<span class="problem-name">' + psalm.english.substring(0, 40) + '… — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
       }
       problemList.appendChild(li);
     });
@@ -437,6 +454,72 @@
       known + " of " + pool.length + " words mastered (" + pct + "%)";
   }
 
+  // ─── Psalms Sentences ────────────────────────────────────
+
+  function nextPsalm() {
+    state.psFlipped = false;
+    var flashcard = document.getElementById("ps-flashcard");
+    flashcard.classList.remove("flipped");
+    document.getElementById("ps-actions").style.display = "none";
+
+    if (PSALMS_SENTENCES.length === 0) return;
+
+    var chosen = pickWeighted(PSALMS_SENTENCES, state.trackers.psalms);
+    state.currentPsalm = chosen;
+
+    document.getElementById("ps-hebrew").textContent = displayHebrew(chosen.hebrew);
+    document.getElementById("ps-english").textContent = chosen.english;
+    document.getElementById("ps-transliteration").textContent = chosen.transliteration;
+    document.getElementById("ps-reference").textContent = chosen.reference;
+
+    document.getElementById("ps-correct").textContent = state.scores.psalms.correct;
+    document.getElementById("ps-total").textContent = state.scores.psalms.total;
+
+    updatePsalmsProgress();
+  }
+
+  function rerenderPsalm() {
+    if (!state.currentPsalm) return;
+    document.getElementById("ps-hebrew").textContent = displayHebrew(state.currentPsalm.hebrew);
+  }
+
+  function flipPsalmCard() {
+    if (state.psFlipped) return;
+    state.psFlipped = true;
+    document.getElementById("ps-flashcard").classList.add("flipped");
+    document.getElementById("ps-actions").style.display = "flex";
+  }
+
+  function handlePsalmKnow() {
+    playCorrectSound();
+    state.scores.psalms.total++;
+    state.scores.psalms.correct++;
+    state.psalmsKnown[state.currentPsalm.id] = true;
+    updateWeight(state.trackers.psalms, state.currentPsalm.id, true);
+    saveState();
+    updateHeaderScore();
+    nextPsalm();
+  }
+
+  function handlePsalmLearning() {
+    playIncorrectSound();
+    state.scores.psalms.total++;
+    delete state.psalmsKnown[state.currentPsalm.id];
+    updateWeight(state.trackers.psalms, state.currentPsalm.id, false);
+    saveState();
+    updateHeaderScore();
+    nextPsalm();
+  }
+
+  function updatePsalmsProgress() {
+    var known = PSALMS_SENTENCES.filter(function (p) { return state.psalmsKnown[p.id]; }).length;
+    var total = PSALMS_SENTENCES.length;
+    var pct = total ? Math.round(known / total * 100) : 0;
+    document.getElementById("ps-progress-fill").style.width = pct + "%";
+    document.getElementById("ps-progress-text").textContent =
+      known + " of " + total + " verses mastered (" + pct + "%)";
+  }
+
   // ─── Letter Quiz ──────────────────────────────────────────
 
   function nextLetterQuiz() {
@@ -560,6 +643,7 @@
     if (section === "letter-recog") nextLetterRecog();
     if (section === "vocab") rerenderVocab();
     if (section === "letter-quiz") nextLetterQuiz();
+    if (section === "psalms") rerenderPsalm();
     if (section === "reference") renderReference();
     if (section === "home") renderHome();
   }
@@ -603,6 +687,11 @@
     document.getElementById("flashcard").addEventListener("click", flipFlashcard);
     document.getElementById("btn-know").addEventListener("click", handleVocabKnow);
     document.getElementById("btn-learning").addEventListener("click", handleVocabLearning);
+
+    // Psalms flashcard
+    document.getElementById("ps-flashcard").addEventListener("click", flipPsalmCard);
+    document.getElementById("ps-btn-know").addEventListener("click", handlePsalmKnow);
+    document.getElementById("ps-btn-learning").addEventListener("click", handlePsalmLearning);
 
     // Letter recognition filter
     document.getElementById("lr-filter").addEventListener("change", function (e) {

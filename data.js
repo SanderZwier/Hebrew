@@ -915,6 +915,149 @@ const VOCABULARY = [
   }
 ];
 
+const PSALMS_SENTENCES = [
+  {
+    id: "ps-23-1",
+    hebrew: "יְהוָה רֹעִי לֹא אֶחְסָר",
+    transliteration: "Adonai ro'i, lo echsar",
+    english: "The LORD is my shepherd; I shall not want",
+    reference: "Psalm 23:1"
+  },
+  {
+    id: "ps-119-105",
+    hebrew: "נֵר לְרַגְלִי דְבָרֶךָ וְאוֹר לִנְתִיבָתִי",
+    transliteration: "Ner le-ragli devarekha, ve-or lintivati",
+    english: "Your word is a lamp to my feet and a light to my path",
+    reference: "Psalm 119:105"
+  },
+  {
+    id: "ps-46-10",
+    hebrew: "הַרְפּוּ וּדְעוּ כִּי אָנֹכִי אֱלֹהִים",
+    transliteration: "Harpu ud'u ki anokhi Elohim",
+    english: "Be still and know that I am God",
+    reference: "Psalm 46:10"
+  },
+  {
+    id: "ps-34-8",
+    hebrew: "טַעֲמוּ וּרְאוּ כִּי טוֹב יְהוָה",
+    transliteration: "Ta'amu ur'u ki tov Adonai",
+    english: "Taste and see that the LORD is good",
+    reference: "Psalm 34:8"
+  },
+  {
+    id: "ps-150-6",
+    hebrew: "כֹּל הַנְּשָׁמָה תְּהַלֵּל יָהּ הַלְלוּיָהּ",
+    transliteration: "Kol ha-neshamah tehallel Yah, Halleluyah",
+    english: "Let everything that has breath praise the LORD. Hallelujah!",
+    reference: "Psalm 150:6"
+  },
+  {
+    id: "ps-118-24",
+    hebrew: "זֶה הַיּוֹם עָשָׂה יְהוָה נָגִילָה וְנִשְׂמְחָה בוֹ",
+    transliteration: "Zeh ha-yom asah Adonai, nagilah ve-nism'chah vo",
+    english: "This is the day the LORD has made; let us rejoice and be glad in it",
+    reference: "Psalm 118:24"
+  },
+  {
+    id: "ps-19-1",
+    hebrew: "הַשָּׁמַיִם מְסַפְּרִים כְּבוֹד אֵל",
+    transliteration: "Ha-shamayim mesapperim kevod El",
+    english: "The heavens declare the glory of God",
+    reference: "Psalm 19:1"
+  },
+  {
+    id: "ps-27-1",
+    hebrew: "יְהוָה אוֹרִי וְיִשְׁעִי מִמִּי אִירָא",
+    transliteration: "Adonai ori ve-yish'i, mimmi ira",
+    english: "The LORD is my light and my salvation — whom shall I fear?",
+    reference: "Psalm 27:1"
+  },
+  {
+    id: "ps-51-10",
+    hebrew: "לֵב טָהוֹר בְּרָא לִי אֱלֹהִים",
+    transliteration: "Lev tahor bera li Elohim",
+    english: "Create in me a clean heart, O God",
+    reference: "Psalm 51:10"
+  },
+  {
+    id: "ps-133-1",
+    hebrew: "הִנֵּה מַה טּוֹב וּמַה נָּעִים שֶׁבֶת אַחִים גַּם יָחַד",
+    transliteration: "Hinneh mah tov u-mah na'im shevet achim gam yachad",
+    english: "How good and pleasant it is when brothers dwell together in unity",
+    reference: "Psalm 133:1"
+  },
+  {
+    id: "ps-100-1",
+    hebrew: "הָרִיעוּ לַיהוָה כָּל הָאָרֶץ",
+    transliteration: "Hari'u l'Adonai kol ha-arets",
+    english: "Shout for joy to the LORD, all the earth",
+    reference: "Psalm 100:1"
+  },
+  {
+    id: "ps-121-1",
+    hebrew: "אֶשָּׂא עֵינַי אֶל הֶהָרִים מֵאַיִן יָבֹא עֶזְרִי",
+    transliteration: "Essa einai el he-harim, me-ayin yavo ezri",
+    english: "I lift up my eyes to the mountains — where does my help come from?",
+    reference: "Psalm 121:1"
+  },
+  {
+    id: "ps-103-1",
+    hebrew: "בָּרֲכִי נַפְשִׁי אֶת יְהוָה",
+    transliteration: "Barakhi nafshi et Adonai",
+    english: "Bless the LORD, O my soul",
+    reference: "Psalm 103:1"
+  },
+  {
+    id: "ps-136-1",
+    hebrew: "הוֹדוּ לַיהוָה כִּי טוֹב כִּי לְעוֹלָם חַסְדּוֹ",
+    transliteration: "Hodu l'Adonai ki tov, ki le-olam chasdo",
+    english: "Give thanks to the LORD, for he is good; his steadfast love endures forever",
+    reference: "Psalm 136:1"
+  },
+  {
+    id: "ps-1-1",
+    hebrew: "אַשְׁרֵי הָאִישׁ אֲשֶׁר לֹא הָלַךְ בַּעֲצַת רְשָׁעִים",
+    transliteration: "Ashrei ha-ish asher lo halakh ba-atsat resha'im",
+    english: "Blessed is the man who walks not in the counsel of the wicked",
+    reference: "Psalm 1:1"
+  },
+  {
+    id: "ps-37-5",
+    hebrew: "גּוֹל עַל יְהוָה דַּרְכֶּךָ וּבְטַח עָלָיו",
+    transliteration: "Gol al Adonai darkekhah, u-v'tach alav",
+    english: "Commit your way to the LORD; trust in him",
+    reference: "Psalm 37:5"
+  },
+  {
+    id: "ps-42-1",
+    hebrew: "כְּאַיָּל תַּעֲרֹג עַל אֲפִיקֵי מָיִם",
+    transliteration: "Ke-ayal ta'arog al afikei mayim",
+    english: "As the deer pants for streams of water",
+    reference: "Psalm 42:1"
+  },
+  {
+    id: "ps-145-18",
+    hebrew: "קָרוֹב יְהוָה לְכָל קֹרְאָיו",
+    transliteration: "Qarov Adonai le-khol qor'av",
+    english: "The LORD is near to all who call on him",
+    reference: "Psalm 145:18"
+  },
+  {
+    id: "ps-34-14",
+    hebrew: "בַּקֵּשׁ שָׁלוֹם וְרָדְפֵהוּ",
+    transliteration: "Baqqesh shalom ve-rodfeihu",
+    english: "Seek peace and pursue it",
+    reference: "Psalm 34:14"
+  },
+  {
+    id: "ps-16-11",
+    hebrew: "תּוֹדִיעֵנִי אֹרַח חַיִּים",
+    transliteration: "Todi'eni orach chayyim",
+    english: "You make known to me the path of life",
+    reference: "Psalm 16:11"
+  }
+];
+
 const CATEGORY_LABELS = {
   theology: "Theology",
   people: "People & Family",

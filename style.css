@@ -325,7 +325,7 @@ main {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
 }
 
@@ -630,6 +630,24 @@ main {
   text-align: center;
 }
 
+/* ─── Psalms Sentences ────────────────────────────────────── */
+.hebrew-sentence {
+  font-family: var(--font-hebrew);
+  font-size: 2rem;
+  line-height: 1.5;
+  direction: rtl;
+  color: var(--text);
+  user-select: none;
+  text-align: center;
+}
+
+.ps-reference {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
 /* ─── Reference Tables ────────────────────────────────────── */
 .reference-container h2 {
   font-size: 1.15rem;
@@ -700,7 +718,7 @@ main {
   }
 
   .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -711,6 +729,10 @@ main {
 
   .hebrew-large {
     font-size: 6rem;
+  }
+
+  .hebrew-sentence {
+    font-size: 2.4rem;
   }
 
   .home-hebrew {
@@ -734,6 +756,10 @@ main {
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hebrew-sentence {
+    font-size: 1.6rem;
   }
 }
 

@@ -30,6 +30,7 @@
       <button class="nav-btn" data-section="letter-recog">Letters</button>
       <button class="nav-btn" data-section="vocab">Vocabulary</button>
       <button class="nav-btn" data-section="letter-quiz">Quiz</button>
+      <button class="nav-btn" data-section="psalms">Psalms</button>
       <button class="nav-btn" data-section="reference">Reference</button>
     </nav>
   </header>
@@ -57,6 +58,11 @@
           <span class="mode-icon">ש</span>
           <h3>Letter Quiz</h3>
           <p>Match letter names to Hebrew characters</p>
+        </button>
+        <button class="mode-card" data-goto="psalms">
+          <span class="mode-icon">תּ</span>
+          <h3>Psalms</h3>
+          <p>Read short sentences from the Psalms</p>
         </button>
       </div>
 
@@ -168,6 +174,44 @@
         <div class="quiz-feedback" id="lq-feedback"></div>
 
         <div class="streak-display" id="lq-streak"></div>
+      </div>
+    </section>
+
+    <!-- PSALMS SENTENCES -->
+    <section id="section-psalms" class="section">
+      <div class="vocab-container">
+        <div class="quiz-header">
+          <h2>Psalms</h2>
+          <div class="quiz-score">
+            <span id="ps-correct">0</span> / <span id="ps-total">0</span>
+          </div>
+        </div>
+
+        <div class="flashcard-wrapper">
+          <div class="flashcard" id="ps-flashcard">
+            <div class="flashcard-front" id="ps-flashcard-front">
+              <div class="hebrew-sentence" id="ps-hebrew"></div>
+              <p class="flip-hint">Tap to reveal</p>
+            </div>
+            <div class="flashcard-back" id="ps-flashcard-back">
+              <div class="vocab-english" id="ps-english"></div>
+              <div class="vocab-transliteration" id="ps-transliteration"></div>
+              <div class="ps-reference" id="ps-reference"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vocab-actions" id="ps-actions" style="display:none">
+          <button class="btn btn-know" id="ps-btn-know">Know it</button>
+          <button class="btn btn-learning" id="ps-btn-learning">Still learning</button>
+        </div>
+
+        <div class="vocab-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="ps-progress-fill"></div>
+          </div>
+          <p class="progress-text" id="ps-progress-text"></p>
+        </div>
       </div>
     </section>
 
