@@ -736,3 +736,52 @@ main {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ─── Dark Mode (system preference) ──────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a2e;
+    --bg-card: #252540;
+    --bg-header: #10101c;
+    --text: #e0ddd5;
+    --text-light: #9e9a90;
+    --text-on-dark: #e0ddd5;
+    --accent: #c9a882;
+    --accent-light: #ddc4a0;
+    --correct: #66bb6a;
+    --correct-bg: #1b3a26;
+    --incorrect: #ef5350;
+    --incorrect-bg: #3a1b1b;
+    --border: #3a3a52;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .slider {
+    background: #444;
+  }
+
+  .score-correct {
+    color: #81c784;
+  }
+
+  .mode-icon {
+    background: rgba(201, 168, 130, 0.12);
+  }
+
+  .problem-areas {
+    border-color: #5a2a2a;
+  }
+
+  .quiz-choices .choice-btn:hover:not(:disabled) {
+    background: rgba(201, 168, 130, 0.08);
+  }
+
+  .ref-table tr:hover td {
+    background: rgba(201, 168, 130, 0.05);
+  }
+
+  .category-filter select {
+    color-scheme: dark;
+  }
+}
