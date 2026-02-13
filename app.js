@@ -340,6 +340,11 @@
     updateVocabProgress();
   }
 
+  function rerenderVocab() {
+    if (!state.currentVocabItem) return;
+    document.getElementById("vocab-hebrew").textContent = displayHebrew(state.currentVocabItem.hebrew);
+  }
+
   function flipFlashcard() {
     if (state.flashcardFlipped) return;
     state.flashcardFlipped = true;
@@ -494,7 +499,7 @@
     // Re-render current section
     var section = state.currentSection;
     if (section === "letter-recog") nextLetterRecog();
-    if (section === "vocab") nextVocab();
+    if (section === "vocab") rerenderVocab();
     if (section === "letter-quiz") nextLetterQuiz();
     if (section === "reference") renderReference();
     if (section === "home") renderHome();
