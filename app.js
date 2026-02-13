@@ -123,6 +123,7 @@
   // ─── Sound Effects (Web Audio API) ────────────────────────
 
   var audioCtx = null;
+  var audioUnlocked = false;
 
   function getAudioCtx() {
     if (!audioCtx) {
@@ -133,6 +134,24 @@
     }
     return audioCtx;
   }
+
+  // iOS Safari requires audio to be "unlocked" by playing a sound
+  // directly inside a user-initiated touch/click handler.
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    var ctx = getAudioCtx();
+    var buf = ctx.createBuffer(1, 1, 22050);
+    var src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start(0);
+    audioUnlocked = true;
+    document.removeEventListener("touchstart", unlockAudio, true);
+    document.removeEventListener("click", unlockAudio, true);
+  }
+
+  document.addEventListener("touchstart", unlockAudio, true);
+  document.addEventListener("click", unlockAudio, true);
 
   function playCorrectSound() {
     try {
