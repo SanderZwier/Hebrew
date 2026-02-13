@@ -490,7 +490,10 @@
   function nextPsalm() {
     state.psFlipped = false;
     var flashcard = document.getElementById("ps-flashcard");
+    flashcard.style.transition = "none";
     flashcard.classList.remove("flipped");
+    void flashcard.offsetHeight;
+    flashcard.style.transition = "";
     document.getElementById("ps-actions").style.display = "none";
 
     if (PSALMS_SENTENCES.length === 0) return;
@@ -515,10 +518,12 @@
   }
 
   function flipPsalmCard() {
-    if (state.psFlipped) return;
-    state.psFlipped = true;
-    document.getElementById("ps-flashcard").classList.add("flipped");
-    document.getElementById("ps-actions").style.display = "flex";
+    state.psFlipped = !state.psFlipped;
+    var flashcard = document.getElementById("ps-flashcard");
+    flashcard.classList.toggle("flipped", state.psFlipped);
+    if (state.psFlipped) {
+      document.getElementById("ps-actions").style.display = "flex";
+    }
   }
 
   function handlePsalmKnow() {
