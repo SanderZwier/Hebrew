@@ -110,6 +110,59 @@
     } catch (e) { /* corrupt data, start fresh */ }
   }
 
+  // ─── Sound Effects (Web Audio API) ────────────────────────
+
+  var audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  function playCorrectSound() {
+    try {
+      var ctx = getAudioCtx();
+      var now = ctx.currentTime;
+
+      // Warm ascending two-note chime
+      [392, 523.25].forEach(function (freq, i) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, now + i * 0.12);
+        gain.gain.linearRampToValueAtTime(0.18, now + i * 0.12 + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.45);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.12);
+        osc.stop(now + i * 0.12 + 0.45);
+      });
+    } catch (e) { /* audio not supported */ }
+  }
+
+  function playIncorrectSound() {
+    try {
+      var ctx = getAudioCtx();
+      var now = ctx.currentTime;
+
+      // Soft low tone
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 220;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.15, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.5);
+    } catch (e) { /* audio not supported */ }
+  }
+
   // ─── Navigation ───────────────────────────────────────────
 
   function switchSection(name) {
@@ -297,9 +350,11 @@
 
     var feedback = document.getElementById("lr-feedback");
     if (isCorrect) {
+      playCorrectSound();
       feedback.textContent = "Correct! " + correct.name + " — " + correct.sound;
       feedback.className = "quiz-feedback show-correct";
     } else {
+      playIncorrectSound();
       feedback.textContent = "That was " + correct.name + " — " + correct.sound;
       feedback.className = "quiz-feedback show-incorrect";
     }
@@ -353,6 +408,7 @@
   }
 
   function handleVocabKnow() {
+    playCorrectSound();
     state.scores.vocab.total++;
     state.scores.vocab.correct++;
     state.vocabKnown[state.currentVocabItem.id] = true;
@@ -363,6 +419,7 @@
   }
 
   function handleVocabLearning() {
+    playIncorrectSound();
     state.scores.vocab.total++;
     delete state.vocabKnown[state.currentVocabItem.id];
     updateWeight(state.trackers.vocab, state.currentVocabItem.id, false);
@@ -439,9 +496,11 @@
 
     var feedback = document.getElementById("lq-feedback");
     if (isCorrect) {
+      playCorrectSound();
       feedback.textContent = "Correct! " + correct.name + " is " + displayHebrew(correct.letter);
       feedback.className = "quiz-feedback show-correct";
     } else {
+      playIncorrectSound();
       feedback.textContent = "The correct letter for " + correct.name + " is " + displayHebrew(correct.letter);
       feedback.className = "quiz-feedback show-incorrect";
     }
