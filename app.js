@@ -415,7 +415,13 @@
   function nextVocab() {
     state.flashcardFlipped = false;
     var flashcard = document.getElementById("flashcard");
+    // Disable animation so the card snaps back instantly —
+    // otherwise the answer side of the next card is briefly visible.
+    flashcard.style.transition = "none";
     flashcard.classList.remove("flipped");
+    // Force a reflow so the snap-back takes effect before we re-enable transitions.
+    void flashcard.offsetHeight;
+    flashcard.style.transition = "";
     document.getElementById("vocab-actions").style.display = "none";
 
     var pool = getFilteredVocab();
