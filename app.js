@@ -446,10 +446,13 @@
   }
 
   function flipFlashcard() {
-    if (state.flashcardFlipped) return;
-    state.flashcardFlipped = true;
-    document.getElementById("flashcard").classList.add("flipped");
-    document.getElementById("vocab-actions").style.display = "flex";
+    state.flashcardFlipped = !state.flashcardFlipped;
+    var flashcard = document.getElementById("flashcard");
+    flashcard.classList.toggle("flipped", state.flashcardFlipped);
+    // Show buttons once the answer has been seen at least once
+    if (state.flashcardFlipped) {
+      document.getElementById("vocab-actions").style.display = "flex";
+    }
   }
 
   function handleVocabKnow() {
