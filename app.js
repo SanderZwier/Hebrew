@@ -407,9 +407,18 @@
 
   // ─── Vocabulary Flashcards ────────────────────────────────
 
+  var VOCAB_BATCH_SIZE = 50;
+
+  function getUnlockedVocab() {
+    var totalKnown = Object.keys(state.vocabKnown).length;
+    var unlocked = VOCAB_BATCH_SIZE * (Math.floor(totalKnown / VOCAB_BATCH_SIZE) + 1);
+    return VOCABULARY.slice(0, Math.min(unlocked, VOCABULARY.length));
+  }
+
   function getFilteredVocab() {
-    if (state.currentCategory === "all") return VOCABULARY;
-    return VOCABULARY.filter(function (w) { return w.category === state.currentCategory; });
+    var pool = getUnlockedVocab();
+    if (state.currentCategory === "all") return pool;
+    return pool.filter(function (w) { return w.category === state.currentCategory; });
   }
 
   function nextVocab() {
@@ -477,12 +486,22 @@
   }
 
   function updateVocabProgress() {
+    var unlocked = getUnlockedVocab();
+    var totalKnown = Object.keys(state.vocabKnown).length;
     var pool = getFilteredVocab();
-    var known = pool.filter(function (w) { return state.vocabKnown[w.id]; }).length;
-    var pct = pool.length ? Math.round(known / pool.length * 100) : 0;
+    var knownInPool = pool.filter(function (w) { return state.vocabKnown[w.id]; }).length;
+    var pct = pool.length ? Math.round(knownInPool / pool.length * 100) : 0;
     document.getElementById("vocab-progress-fill").style.width = pct + "%";
-    document.getElementById("vocab-progress-text").textContent =
-      known + " of " + pool.length + " words mastered (" + pct + "%)";
+
+    var level = Math.floor(totalKnown / VOCAB_BATCH_SIZE) + 1;
+    var moreToUnlock = VOCABULARY.length > unlocked.length;
+    var untilNext = moreToUnlock ? (level * VOCAB_BATCH_SIZE - totalKnown) : 0;
+    var text = knownInPool + " of " + pool.length + " words mastered";
+    if (state.currentCategory === "all" && moreToUnlock) {
+      text += " \u2014 " + untilNext + " more to unlock next batch";
+    }
+    text += " (Level " + level + " of " + Math.ceil(VOCABULARY.length / VOCAB_BATCH_SIZE) + ")";
+    document.getElementById("vocab-progress-text").textContent = text;
   }
 
   // ─── Psalms Sentences ────────────────────────────────────

@@ -912,6 +912,1140 @@ const VOCABULARY = [
     english: "judgment, justice",
     category: "nouns",
     frequency: 425
+  },
+
+  // ── Batch 2 (words 56–105) ──────────────────────────────
+
+  // Theology 2
+  {
+    id: "v-tefillah",
+    hebrew: "תְּפִלָּה",
+    hebrewNoNikkud: "תפלה",
+    transliteration: "tefillah",
+    english: "prayer",
+    category: "theology",
+    frequency: 77
+  },
+  {
+    id: "v-emunah",
+    hebrew: "אֱמוּנָה",
+    hebrewNoNikkud: "אמונה",
+    transliteration: "emunah",
+    english: "faithfulness, faith",
+    category: "theology",
+    frequency: 49
+  },
+  {
+    id: "v-avon",
+    hebrew: "עָוֹן",
+    hebrewNoNikkud: "עון",
+    transliteration: "avon",
+    english: "iniquity, guilt",
+    category: "theology",
+    frequency: 233
+  },
+  {
+    id: "v-chatta",
+    hebrew: "חַטָּאת",
+    hebrewNoNikkud: "חטאת",
+    transliteration: "chattat",
+    english: "sin, sin offering",
+    category: "theology",
+    frequency: 296
+  },
+  {
+    id: "v-kavod",
+    hebrew: "כָּבוֹד",
+    hebrewNoNikkud: "כבוד",
+    transliteration: "kavod",
+    english: "glory, honor",
+    category: "theology",
+    frequency: 200
+  },
+  {
+    id: "v-tsedaqah",
+    hebrew: "צְדָקָה",
+    hebrewNoNikkud: "צדקה",
+    transliteration: "tsedaqah",
+    english: "righteousness",
+    category: "theology",
+    frequency: 159
+  },
+  {
+    id: "v-olam",
+    hebrew: "עוֹלָם",
+    hebrewNoNikkud: "עולם",
+    transliteration: "olam",
+    english: "forever, eternity",
+    category: "theology",
+    frequency: 439
+  },
+  {
+    id: "v-mizbeach",
+    hebrew: "מִזְבֵּחַ",
+    hebrewNoNikkud: "מזבח",
+    transliteration: "mizbeach",
+    english: "altar",
+    category: "theology",
+    frequency: 403
+  },
+
+  // People 2
+  {
+    id: "v-eved",
+    hebrew: "עֶבֶד",
+    hebrewNoNikkud: "עבד",
+    transliteration: "eved",
+    english: "servant, slave",
+    category: "people",
+    frequency: 800
+  },
+  {
+    id: "v-ach",
+    hebrew: "אָח",
+    hebrewNoNikkud: "אח",
+    transliteration: "ach",
+    english: "brother",
+    category: "people",
+    frequency: 629
+  },
+  {
+    id: "v-achot",
+    hebrew: "אָחוֹת",
+    hebrewNoNikkud: "אחות",
+    transliteration: "achot",
+    english: "sister",
+    category: "people",
+    frequency: 114
+  },
+  {
+    id: "v-naar",
+    hebrew: "נַעַר",
+    hebrewNoNikkud: "נער",
+    transliteration: "na'ar",
+    english: "boy, youth, servant",
+    category: "people",
+    frequency: 240
+  },
+  {
+    id: "v-naarah",
+    hebrew: "נַעֲרָה",
+    hebrewNoNikkud: "נערה",
+    transliteration: "na'arah",
+    english: "girl, young woman",
+    category: "people",
+    frequency: 76
+  },
+  {
+    id: "v-sar",
+    hebrew: "שַׂר",
+    hebrewNoNikkud: "שר",
+    transliteration: "sar",
+    english: "prince, official",
+    category: "people",
+    frequency: 421
+  },
+  {
+    id: "v-shofet",
+    hebrew: "שֹׁפֵט",
+    hebrewNoNikkud: "שופט",
+    transliteration: "shofet",
+    english: "judge",
+    category: "people",
+    frequency: 69
+  },
+  {
+    id: "v-goy",
+    hebrew: "גּוֹי",
+    hebrewNoNikkud: "גוי",
+    transliteration: "goy",
+    english: "nation, people",
+    category: "people",
+    frequency: 567
+  },
+
+  // Nature 2
+  {
+    id: "v-yam",
+    hebrew: "יָם",
+    hebrewNoNikkud: "ים",
+    transliteration: "yam",
+    english: "sea",
+    category: "nature",
+    frequency: 396
+  },
+  {
+    id: "v-midbar",
+    hebrew: "מִדְבָּר",
+    hebrewNoNikkud: "מדבר",
+    transliteration: "midbar",
+    english: "wilderness, desert",
+    category: "nature",
+    frequency: 271
+  },
+  {
+    id: "v-even",
+    hebrew: "אֶבֶן",
+    hebrewNoNikkud: "אבן",
+    transliteration: "even",
+    english: "stone",
+    category: "nature",
+    frequency: 276
+  },
+  {
+    id: "v-kochav",
+    hebrew: "כּוֹכָב",
+    hebrewNoNikkud: "כוכב",
+    transliteration: "kokhav",
+    english: "star",
+    category: "nature",
+    frequency: 37
+  },
+  {
+    id: "v-anan",
+    hebrew: "עָנָן",
+    hebrewNoNikkud: "ענן",
+    transliteration: "anan",
+    english: "cloud",
+    category: "nature",
+    frequency: 87
+  },
+  {
+    id: "v-geshem",
+    hebrew: "גֶּשֶׁם",
+    hebrewNoNikkud: "גשם",
+    transliteration: "geshem",
+    english: "rain",
+    category: "nature",
+    frequency: 35
+  },
+  {
+    id: "v-sadeh",
+    hebrew: "שָׂדֶה",
+    hebrewNoNikkud: "שדה",
+    transliteration: "sadeh",
+    english: "field",
+    category: "nature",
+    frequency: 329
+  },
+  {
+    id: "v-chol",
+    hebrew: "חוֹל",
+    hebrewNoNikkud: "חול",
+    transliteration: "chol",
+    english: "sand",
+    category: "nature",
+    frequency: 23
+  },
+
+  // Verbs 2
+  {
+    id: "v-avar",
+    hebrew: "עָבַר",
+    hebrewNoNikkud: "עבר",
+    transliteration: "avar",
+    english: "to pass over, to cross",
+    category: "verbs",
+    frequency: 553
+  },
+  {
+    id: "v-lakach",
+    hebrew: "לָקַח",
+    hebrewNoNikkud: "לקח",
+    transliteration: "laqach",
+    english: "to take",
+    category: "verbs",
+    frequency: 967
+  },
+  {
+    id: "v-qara",
+    hebrew: "קָרָא",
+    hebrewNoNikkud: "קרא",
+    transliteration: "qara",
+    english: "to call, to read",
+    category: "verbs",
+    frequency: 739
+  },
+  {
+    id: "v-shalach",
+    hebrew: "שָׁלַח",
+    hebrewNoNikkud: "שלח",
+    transliteration: "shalach",
+    english: "to send",
+    category: "verbs",
+    frequency: 847
+  },
+  {
+    id: "v-akhal",
+    hebrew: "אָכַל",
+    hebrewNoNikkud: "אכל",
+    transliteration: "akhal",
+    english: "to eat",
+    category: "verbs",
+    frequency: 820
+  },
+  {
+    id: "v-muth",
+    hebrew: "מוּת",
+    hebrewNoNikkud: "מות",
+    transliteration: "mut",
+    english: "to die",
+    category: "verbs",
+    frequency: 854
+  },
+  {
+    id: "v-nasa",
+    hebrew: "נָשָׂא",
+    hebrewNoNikkud: "נשא",
+    transliteration: "nasa",
+    english: "to lift, to carry",
+    category: "verbs",
+    frequency: 659
+  },
+  {
+    id: "v-samach",
+    hebrew: "שָׂמַח",
+    hebrewNoNikkud: "שמח",
+    transliteration: "samach",
+    english: "to rejoice, to be glad",
+    category: "verbs",
+    frequency: 156
+  },
+
+  // Nouns 2
+  {
+    id: "v-lechem",
+    hebrew: "לֶחֶם",
+    hebrewNoNikkud: "לחם",
+    transliteration: "lechem",
+    english: "bread, food",
+    category: "nouns",
+    frequency: 298
+  },
+  {
+    id: "v-dam",
+    hebrew: "דָּם",
+    hebrewNoNikkud: "דם",
+    transliteration: "dam",
+    english: "blood",
+    category: "nouns",
+    frequency: 361
+  },
+  {
+    id: "v-chayim",
+    hebrew: "חַיִּים",
+    hebrewNoNikkud: "חיים",
+    transliteration: "chayyim",
+    english: "life",
+    category: "nouns",
+    frequency: 269
+  },
+  {
+    id: "v-mavet",
+    hebrew: "מָוֶת",
+    hebrewNoNikkud: "מות",
+    transliteration: "mavet",
+    english: "death",
+    category: "nouns",
+    frequency: 153
+  },
+  {
+    id: "v-kol",
+    hebrew: "קוֹל",
+    hebrewNoNikkud: "קול",
+    transliteration: "qol",
+    english: "voice, sound",
+    category: "nouns",
+    frequency: 506
+  },
+  {
+    id: "v-panim",
+    hebrew: "פָּנִים",
+    hebrewNoNikkud: "פנים",
+    transliteration: "panim",
+    english: "face",
+    category: "nouns",
+    frequency: 2126
+  },
+  {
+    id: "v-ayin",
+    hebrew: "עַיִן",
+    hebrewNoNikkud: "עין",
+    transliteration: "ayin",
+    english: "eye, spring",
+    category: "nouns",
+    frequency: 887
+  },
+  {
+    id: "v-regel",
+    hebrew: "רֶגֶל",
+    hebrewNoNikkud: "רגל",
+    transliteration: "regel",
+    english: "foot",
+    category: "nouns",
+    frequency: 251
+  },
+  {
+    id: "v-rosh",
+    hebrew: "רֹאשׁ",
+    hebrewNoNikkud: "ראש",
+    transliteration: "rosh",
+    english: "head, top",
+    category: "nouns",
+    frequency: 600
+  },
+  {
+    id: "v-peh",
+    hebrew: "פֶּה",
+    hebrewNoNikkud: "פה",
+    transliteration: "peh",
+    english: "mouth",
+    category: "nouns",
+    frequency: 498
+  },
+
+  // ── Batch 3 (words 106–155) ─────────────────────────────
+
+  // Theology 3
+  {
+    id: "v-todah",
+    hebrew: "תּוֹדָה",
+    hebrewNoNikkud: "תודה",
+    transliteration: "todah",
+    english: "thanksgiving, praise",
+    category: "theology",
+    frequency: 32
+  },
+  {
+    id: "v-korban",
+    hebrew: "קָרְבָּן",
+    hebrewNoNikkud: "קרבן",
+    transliteration: "qorban",
+    english: "offering, sacrifice",
+    category: "theology",
+    frequency: 80
+  },
+  {
+    id: "v-teshuvah",
+    hebrew: "תְּשׁוּבָה",
+    hebrewNoNikkud: "תשובה",
+    transliteration: "teshuvah",
+    english: "repentance, return",
+    category: "theology",
+    frequency: 8
+  },
+  {
+    id: "v-geulah",
+    hebrew: "גְּאֻלָּה",
+    hebrewNoNikkud: "גאולה",
+    transliteration: "geulah",
+    english: "redemption",
+    category: "theology",
+    frequency: 14
+  },
+  {
+    id: "v-tehillah",
+    hebrew: "תְּהִלָּה",
+    hebrewNoNikkud: "תהלה",
+    transliteration: "tehillah",
+    english: "praise, hymn",
+    category: "theology",
+    frequency: 57
+  },
+  {
+    id: "v-yeshuah",
+    hebrew: "יְשׁוּעָה",
+    hebrewNoNikkud: "ישועה",
+    transliteration: "yeshuah",
+    english: "salvation, deliverance",
+    category: "theology",
+    frequency: 78
+  },
+  {
+    id: "v-rachamim",
+    hebrew: "רַחֲמִים",
+    hebrewNoNikkud: "רחמים",
+    transliteration: "rachamim",
+    english: "mercy, compassion",
+    category: "theology",
+    frequency: 44
+  },
+  {
+    id: "v-kedushah",
+    hebrew: "קְדֻשָּׁה",
+    hebrewNoNikkud: "קדושה",
+    transliteration: "qedushah",
+    english: "holiness, sanctity",
+    category: "theology",
+    frequency: 12
+  },
+
+  // People 3
+  {
+    id: "v-almah",
+    hebrew: "עַלְמָה",
+    hebrewNoNikkud: "עלמה",
+    transliteration: "almah",
+    english: "young woman, maiden",
+    category: "people",
+    frequency: 9
+  },
+  {
+    id: "v-zaqen",
+    hebrew: "זָקֵן",
+    hebrewNoNikkud: "זקן",
+    transliteration: "zaqen",
+    english: "elder, old man",
+    category: "people",
+    frequency: 178
+  },
+  {
+    id: "v-ger",
+    hebrew: "גֵּר",
+    hebrewNoNikkud: "גר",
+    transliteration: "ger",
+    english: "stranger, sojourner",
+    category: "people",
+    frequency: 92
+  },
+  {
+    id: "v-gibbor",
+    hebrew: "גִּבּוֹר",
+    hebrewNoNikkud: "גבור",
+    transliteration: "gibbor",
+    english: "mighty man, warrior",
+    category: "people",
+    frequency: 159
+  },
+  {
+    id: "v-yeled",
+    hebrew: "יֶלֶד",
+    hebrewNoNikkud: "ילד",
+    transliteration: "yeled",
+    english: "child, boy",
+    category: "people",
+    frequency: 89
+  },
+  {
+    id: "v-roi",
+    hebrew: "רֹעֶה",
+    hebrewNoNikkud: "רועה",
+    transliteration: "ro'eh",
+    english: "shepherd",
+    category: "people",
+    frequency: 62
+  },
+  {
+    id: "v-oyev",
+    hebrew: "אֹיֵב",
+    hebrewNoNikkud: "אויב",
+    transliteration: "oyev",
+    english: "enemy",
+    category: "people",
+    frequency: 285
+  },
+  {
+    id: "v-malakh",
+    hebrew: "מַלְאָךְ",
+    hebrewNoNikkud: "מלאך",
+    transliteration: "mal'akh",
+    english: "angel, messenger",
+    category: "people",
+    frequency: 213
+  },
+
+  // Nature 3
+  {
+    id: "v-gan",
+    hebrew: "גַּן",
+    hebrewNoNikkud: "גן",
+    transliteration: "gan",
+    english: "garden",
+    category: "nature",
+    frequency: 57
+  },
+  {
+    id: "v-perach",
+    hebrew: "פֶּרַח",
+    hebrewNoNikkud: "פרח",
+    transliteration: "perach",
+    english: "flower, blossom",
+    category: "nature",
+    frequency: 17
+  },
+  {
+    id: "v-peri",
+    hebrew: "פְּרִי",
+    hebrewNoNikkud: "פרי",
+    transliteration: "peri",
+    english: "fruit",
+    category: "nature",
+    frequency: 119
+  },
+  {
+    id: "v-kerem",
+    hebrew: "כֶּרֶם",
+    hebrewNoNikkud: "כרם",
+    transliteration: "kerem",
+    english: "vineyard",
+    category: "nature",
+    frequency: 94
+  },
+  {
+    id: "v-afar",
+    hebrew: "עָפָר",
+    hebrewNoNikkud: "עפר",
+    transliteration: "afar",
+    english: "dust, earth",
+    category: "nature",
+    frequency: 110
+  },
+  {
+    id: "v-ruach-2",
+    hebrew: "רוּחַ",
+    hebrewNoNikkud: "רוח",
+    transliteration: "ruach",
+    english: "wind",
+    category: "nature",
+    frequency: 378
+  },
+  {
+    id: "v-shamash",
+    hebrew: "שֶׁמֶשׁ",
+    hebrewNoNikkud: "שמש",
+    transliteration: "shemesh",
+    english: "sun",
+    category: "nature",
+    frequency: 134
+  },
+  {
+    id: "v-yareach",
+    hebrew: "יָרֵחַ",
+    hebrewNoNikkud: "ירח",
+    transliteration: "yareach",
+    english: "moon",
+    category: "nature",
+    frequency: 26
+  },
+
+  // Verbs 3
+  {
+    id: "v-bara",
+    hebrew: "בָּרָא",
+    hebrewNoNikkud: "ברא",
+    transliteration: "bara",
+    english: "to create",
+    category: "verbs",
+    frequency: 48
+  },
+  {
+    id: "v-tsivah",
+    hebrew: "צִוָּה",
+    hebrewNoNikkud: "צוה",
+    transliteration: "tsivah",
+    english: "to command",
+    category: "verbs",
+    frequency: 496
+  },
+  {
+    id: "v-shamar",
+    hebrew: "שָׁמַר",
+    hebrewNoNikkud: "שמר",
+    transliteration: "shamar",
+    english: "to keep, to guard",
+    category: "verbs",
+    frequency: 469
+  },
+  {
+    id: "v-yadah",
+    hebrew: "יָדָה",
+    hebrewNoNikkud: "ידה",
+    transliteration: "yadah",
+    english: "to praise, to give thanks",
+    category: "verbs",
+    frequency: 111
+  },
+  {
+    id: "v-barak",
+    hebrew: "בָּרַךְ",
+    hebrewNoNikkud: "ברך",
+    transliteration: "barakh",
+    english: "to bless, to kneel",
+    category: "verbs",
+    frequency: 327
+  },
+  {
+    id: "v-palal",
+    hebrew: "פָּלַל",
+    hebrewNoNikkud: "פלל",
+    transliteration: "palal",
+    english: "to pray",
+    category: "verbs",
+    frequency: 84
+  },
+  {
+    id: "v-zakar",
+    hebrew: "זָכַר",
+    hebrewNoNikkud: "זכר",
+    transliteration: "zakhar",
+    english: "to remember",
+    category: "verbs",
+    frequency: 235
+  },
+  {
+    id: "v-batach",
+    hebrew: "בָּטַח",
+    hebrewNoNikkud: "בטח",
+    transliteration: "batach",
+    english: "to trust",
+    category: "verbs",
+    frequency: 120
+  },
+
+  // Nouns 3
+  {
+    id: "v-shulchan",
+    hebrew: "שֻׁלְחָן",
+    hebrewNoNikkud: "שלחן",
+    transliteration: "shulchan",
+    english: "table",
+    category: "nouns",
+    frequency: 71
+  },
+  {
+    id: "v-kos",
+    hebrew: "כּוֹס",
+    hebrewNoNikkud: "כוס",
+    transliteration: "kos",
+    english: "cup",
+    category: "nouns",
+    frequency: 31
+  },
+  {
+    id: "v-shaar",
+    hebrew: "שַׁעַר",
+    hebrewNoNikkud: "שער",
+    transliteration: "sha'ar",
+    english: "gate",
+    category: "nouns",
+    frequency: 373
+  },
+  {
+    id: "v-cherev",
+    hebrew: "חֶרֶב",
+    hebrewNoNikkud: "חרב",
+    transliteration: "cherev",
+    english: "sword",
+    category: "nouns",
+    frequency: 413
+  },
+  {
+    id: "v-beged",
+    hebrew: "בֶּגֶד",
+    hebrewNoNikkud: "בגד",
+    transliteration: "beged",
+    english: "garment, clothing",
+    category: "nouns",
+    frequency: 217
+  },
+  {
+    id: "v-kesef",
+    hebrew: "כֶּסֶף",
+    hebrewNoNikkud: "כסף",
+    transliteration: "kesef",
+    english: "silver, money",
+    category: "nouns",
+    frequency: 403
+  },
+  {
+    id: "v-zahav",
+    hebrew: "זָהָב",
+    hebrewNoNikkud: "זהב",
+    transliteration: "zahav",
+    english: "gold",
+    category: "nouns",
+    frequency: 392
+  },
+  {
+    id: "v-ohel",
+    hebrew: "אֹהֶל",
+    hebrewNoNikkud: "אהל",
+    transliteration: "ohel",
+    english: "tent",
+    category: "nouns",
+    frequency: 348
+  },
+
+  // ── Batch 4 (words 156–205) ─────────────────────────────
+
+  // Theology 4
+  {
+    id: "v-mikdash",
+    hebrew: "מִקְדָּשׁ",
+    hebrewNoNikkud: "מקדש",
+    transliteration: "miqdash",
+    english: "sanctuary",
+    category: "theology",
+    frequency: 75
+  },
+  {
+    id: "v-kapporet",
+    hebrew: "כַּפֹּרֶת",
+    hebrewNoNikkud: "כפורת",
+    transliteration: "kapporet",
+    english: "mercy seat, atonement cover",
+    category: "theology",
+    frequency: 27
+  },
+  {
+    id: "v-neder",
+    hebrew: "נֶדֶר",
+    hebrewNoNikkud: "נדר",
+    transliteration: "neder",
+    english: "vow",
+    category: "theology",
+    frequency: 60
+  },
+  {
+    id: "v-moed",
+    hebrew: "מוֹעֵד",
+    hebrewNoNikkud: "מועד",
+    transliteration: "mo'ed",
+    english: "appointed time, festival",
+    category: "theology",
+    frequency: 223
+  },
+  {
+    id: "v-shabbat",
+    hebrew: "שַׁבָּת",
+    hebrewNoNikkud: "שבת",
+    transliteration: "shabbat",
+    english: "Sabbath, rest",
+    category: "theology",
+    frequency: 111
+  },
+  {
+    id: "v-chet",
+    hebrew: "חֵטְא",
+    hebrewNoNikkud: "חטא",
+    transliteration: "chet",
+    english: "sin",
+    category: "theology",
+    frequency: 34
+  },
+  {
+    id: "v-nachalah",
+    hebrew: "נַחֲלָה",
+    hebrewNoNikkud: "נחלה",
+    transliteration: "nachalah",
+    english: "inheritance, portion",
+    category: "theology",
+    frequency: 222
+  },
+  {
+    id: "v-emet",
+    hebrew: "אֱמֶת",
+    hebrewNoNikkud: "אמת",
+    transliteration: "emet",
+    english: "truth, faithfulness",
+    category: "theology",
+    frequency: 127
+  },
+
+  // People 4
+  {
+    id: "v-tsava",
+    hebrew: "צָבָא",
+    hebrewNoNikkud: "צבא",
+    transliteration: "tsava",
+    english: "army, host",
+    category: "people",
+    frequency: 487
+  },
+  {
+    id: "v-mishpachah",
+    hebrew: "מִשְׁפָּחָה",
+    hebrewNoNikkud: "משפחה",
+    transliteration: "mishpachah",
+    english: "family, clan",
+    category: "people",
+    frequency: 304
+  },
+  {
+    id: "v-dor",
+    hebrew: "דּוֹר",
+    hebrewNoNikkud: "דור",
+    transliteration: "dor",
+    english: "generation",
+    category: "people",
+    frequency: 167
+  },
+  {
+    id: "v-almana",
+    hebrew: "אַלְמָנָה",
+    hebrewNoNikkud: "אלמנה",
+    transliteration: "almanah",
+    english: "widow",
+    category: "people",
+    frequency: 55
+  },
+  {
+    id: "v-yatom",
+    hebrew: "יָתוֹם",
+    hebrewNoNikkud: "יתום",
+    transliteration: "yatom",
+    english: "orphan, fatherless",
+    category: "people",
+    frequency: 42
+  },
+  {
+    id: "v-rasha",
+    hebrew: "רָשָׁע",
+    hebrewNoNikkud: "רשע",
+    transliteration: "rasha",
+    english: "wicked person",
+    category: "people",
+    frequency: 263
+  },
+  {
+    id: "v-tsaddiq",
+    hebrew: "צַדִּיק",
+    hebrewNoNikkud: "צדיק",
+    transliteration: "tsaddiq",
+    english: "righteous person",
+    category: "people",
+    frequency: 206
+  },
+  {
+    id: "v-chokhma",
+    hebrew: "חָכְמָה",
+    hebrewNoNikkud: "חכמה",
+    transliteration: "chokhmah",
+    english: "wisdom",
+    category: "people",
+    frequency: 153
+  },
+
+  // Nature 4
+  {
+    id: "v-tal",
+    hebrew: "טַל",
+    hebrewNoNikkud: "טל",
+    transliteration: "tal",
+    english: "dew",
+    category: "nature",
+    frequency: 31
+  },
+  {
+    id: "v-sheleg",
+    hebrew: "שֶׁלֶג",
+    hebrewNoNikkud: "שלג",
+    transliteration: "sheleg",
+    english: "snow",
+    category: "nature",
+    frequency: 20
+  },
+  {
+    id: "v-barad",
+    hebrew: "בָּרָד",
+    hebrewNoNikkud: "ברד",
+    transliteration: "barad",
+    english: "hail",
+    category: "nature",
+    frequency: 29
+  },
+  {
+    id: "v-tohu",
+    hebrew: "תֹּהוּ",
+    hebrewNoNikkud: "תהו",
+    transliteration: "tohu",
+    english: "formless, void, chaos",
+    category: "nature",
+    frequency: 20
+  },
+  {
+    id: "v-tehom",
+    hebrew: "תְּהוֹם",
+    hebrewNoNikkud: "תהום",
+    transliteration: "tehom",
+    english: "deep, abyss",
+    category: "nature",
+    frequency: 36
+  },
+  {
+    id: "v-nesher",
+    hebrew: "נֶשֶׁר",
+    hebrewNoNikkud: "נשר",
+    transliteration: "nesher",
+    english: "eagle",
+    category: "nature",
+    frequency: 26
+  },
+  {
+    id: "v-aryeh",
+    hebrew: "אַרְיֵה",
+    hebrewNoNikkud: "אריה",
+    transliteration: "aryeh",
+    english: "lion",
+    category: "nature",
+    frequency: 45
+  },
+  {
+    id: "v-tson",
+    hebrew: "צֹאן",
+    hebrewNoNikkud: "צאן",
+    transliteration: "tson",
+    english: "flock, sheep",
+    category: "nature",
+    frequency: 274
+  },
+
+  // Verbs 4
+  {
+    id: "v-galah",
+    hebrew: "גָּלָה",
+    hebrewNoNikkud: "גלה",
+    transliteration: "galah",
+    english: "to reveal, to go into exile",
+    category: "verbs",
+    frequency: 187
+  },
+  {
+    id: "v-ga-al",
+    hebrew: "גָּאַל",
+    hebrewNoNikkud: "גאל",
+    transliteration: "ga'al",
+    english: "to redeem",
+    category: "verbs",
+    frequency: 104
+  },
+  {
+    id: "v-salach",
+    hebrew: "סָלַח",
+    hebrewNoNikkud: "סלח",
+    transliteration: "salach",
+    english: "to forgive",
+    category: "verbs",
+    frequency: 46
+  },
+  {
+    id: "v-chazaq",
+    hebrew: "חָזַק",
+    hebrewNoNikkud: "חזק",
+    transliteration: "chazaq",
+    english: "to be strong, to strengthen",
+    category: "verbs",
+    frequency: 290
+  },
+  {
+    id: "v-yarash",
+    hebrew: "יָרַשׁ",
+    hebrewNoNikkud: "ירש",
+    transliteration: "yarash",
+    english: "to inherit, to possess",
+    category: "verbs",
+    frequency: 232
+  },
+  {
+    id: "v-banah",
+    hebrew: "בָּנָה",
+    hebrewNoNikkud: "בנה",
+    transliteration: "banah",
+    english: "to build",
+    category: "verbs",
+    frequency: 376
+  },
+  {
+    id: "v-shavar",
+    hebrew: "שָׁבַר",
+    hebrewNoNikkud: "שבר",
+    transliteration: "shavar",
+    english: "to break",
+    category: "verbs",
+    frequency: 148
+  },
+  {
+    id: "v-malakh-v",
+    hebrew: "מָלַךְ",
+    hebrewNoNikkud: "מלך",
+    transliteration: "malakh",
+    english: "to reign, to be king",
+    category: "verbs",
+    frequency: 350
+  },
+
+  // Nouns 4
+  {
+    id: "v-aron",
+    hebrew: "אֲרוֹן",
+    hebrewNoNikkud: "ארון",
+    transliteration: "aron",
+    english: "ark, chest",
+    category: "nouns",
+    frequency: 202
+  },
+  {
+    id: "v-menorah",
+    hebrew: "מְנוֹרָה",
+    hebrewNoNikkud: "מנורה",
+    transliteration: "menorah",
+    english: "lampstand",
+    category: "nouns",
+    frequency: 40
+  },
+  {
+    id: "v-keli",
+    hebrew: "כְּלִי",
+    hebrewNoNikkud: "כלי",
+    transliteration: "keli",
+    english: "vessel, instrument",
+    category: "nouns",
+    frequency: 325
+  },
+  {
+    id: "v-shemen",
+    hebrew: "שֶׁמֶן",
+    hebrewNoNikkud: "שמן",
+    transliteration: "shemen",
+    english: "oil, ointment",
+    category: "nouns",
+    frequency: 193
+  },
+  {
+    id: "v-yayin",
+    hebrew: "יַיִן",
+    hebrewNoNikkud: "יין",
+    transliteration: "yayin",
+    english: "wine",
+    category: "nouns",
+    frequency: 141
+  },
+  {
+    id: "v-koach",
+    hebrew: "כֹּחַ",
+    hebrewNoNikkud: "כח",
+    transliteration: "koach",
+    english: "strength, power",
+    category: "nouns",
+    frequency: 126
+  },
+  {
+    id: "v-chomer",
+    hebrew: "חוֹמָה",
+    hebrewNoNikkud: "חומה",
+    transliteration: "chomah",
+    english: "wall",
+    category: "nouns",
+    frequency: 133
+  },
+  {
+    id: "v-magen",
+    hebrew: "מָגֵן",
+    hebrewNoNikkud: "מגן",
+    transliteration: "magen",
+    english: "shield",
+    category: "nouns",
+    frequency: 63
   }
 ];
 
