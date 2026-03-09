@@ -2049,7 +2049,8 @@ const VOCABULARY = [
   }
 ];
 
-const PSALMS_SENTENCES = [
+const SCRIPTURE = [
+  // ── Batch 1 (verses 1–20): Psalms ──────────────────────
   {
     id: "ps-23-1",
     hebrew: "יְהוָה רֹעִי לֹא אֶחְסָר",
@@ -2189,6 +2190,574 @@ const PSALMS_SENTENCES = [
     transliteration: "Todi'eni orach chayyim",
     english: "You make known to me the path of life",
     reference: "Psalm 16:11"
+  },
+
+  // ── Batch 2 (verses 21–40): Torah ──────────────────────
+  {
+    id: "sc-gen-1-1",
+    hebrew: "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+    transliteration: "Bereshit bara Elohim et ha-shamayim ve-et ha-arets",
+    english: "In the beginning God created the heavens and the earth",
+    reference: "Genesis 1:1"
+  },
+  {
+    id: "sc-gen-1-3",
+    hebrew: "וַיֹּאמֶר אֱלֹהִים יְהִי אוֹר וַיְהִי אוֹר",
+    transliteration: "Vayomer Elohim yehi or, vayehi or",
+    english: "And God said, 'Let there be light,' and there was light",
+    reference: "Genesis 1:3"
+  },
+  {
+    id: "sc-gen-1-31",
+    hebrew: "וַיַּרְא אֱלֹהִים אֶת כָּל אֲשֶׁר עָשָׂה וְהִנֵּה טוֹב מְאֹד",
+    transliteration: "Vayar Elohim et kol asher asah, ve-hinneh tov me'od",
+    english: "And God saw everything that he had made, and behold, it was very good",
+    reference: "Genesis 1:31"
+  },
+  {
+    id: "sc-gen-2-18",
+    hebrew: "לֹא טוֹב הֱיוֹת הָאָדָם לְבַדּוֹ",
+    transliteration: "Lo tov heyot ha-adam levaddo",
+    english: "It is not good for the man to be alone",
+    reference: "Genesis 2:18"
+  },
+  {
+    id: "sc-gen-12-1",
+    hebrew: "לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ",
+    transliteration: "Lekh lekha me-artsekha u-mi-moladtekha u-mi-bet avikha",
+    english: "Go from your country and your kindred and your father's house",
+    reference: "Genesis 12:1"
+  },
+  {
+    id: "sc-gen-15-6",
+    hebrew: "וְהֶאֱמִן בַּיהוָה וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה",
+    transliteration: "Ve-he'emin b'Adonai, vayachsheveha lo tsedaqah",
+    english: "And he believed the LORD, and he counted it to him as righteousness",
+    reference: "Genesis 15:6"
+  },
+  {
+    id: "sc-gen-28-15",
+    hebrew: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ",
+    transliteration: "Ve-hinneh anokhi immakh, u-shemarttikha be-khol asher telekh",
+    english: "Behold, I am with you and will keep you wherever you go",
+    reference: "Genesis 28:15"
+  },
+  {
+    id: "sc-gen-50-20",
+    hebrew: "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה אֱלֹהִים חֲשָׁבָהּ לְטֹבָה",
+    transliteration: "Attem chashavtem alai ra'ah, Elohim chashavah le-tovah",
+    english: "You meant evil against me, but God meant it for good",
+    reference: "Genesis 50:20"
+  },
+  {
+    id: "sc-exod-3-14",
+    hebrew: "אֶהְיֶה אֲשֶׁר אֶהְיֶה",
+    transliteration: "Ehyeh asher ehyeh",
+    english: "I AM WHO I AM",
+    reference: "Exodus 3:14"
+  },
+  {
+    id: "sc-exod-15-2",
+    hebrew: "עָזִּי וְזִמְרָת יָהּ וַיְהִי לִי לִישׁוּעָה",
+    transliteration: "Azzi ve-zimrat Yah, vayehi li lishu'ah",
+    english: "The LORD is my strength and my song, and he has become my salvation",
+    reference: "Exodus 15:2"
+  },
+  {
+    id: "sc-exod-20-2",
+    hebrew: "אָנֹכִי יְהוָה אֱלֹהֶיךָ אֲשֶׁר הוֹצֵאתִיךָ מֵאֶרֶץ מִצְרַיִם",
+    transliteration: "Anokhi Adonai Elohekha, asher hotsettikha me-erets Mitsrayim",
+    english: "I am the LORD your God, who brought you out of the land of Egypt",
+    reference: "Exodus 20:2"
+  },
+  {
+    id: "sc-lev-19-18",
+    hebrew: "וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ אֲנִי יְהוָה",
+    transliteration: "Ve-ahavta le-re'akha kamokha, ani Adonai",
+    english: "You shall love your neighbor as yourself: I am the LORD",
+    reference: "Leviticus 19:18"
+  },
+  {
+    id: "sc-num-6-24",
+    hebrew: "יְבָרֶכְךָ יְהוָה וְיִשְׁמְרֶךָ",
+    transliteration: "Yevarekh'kha Adonai ve-yishmerekha",
+    english: "The LORD bless you and keep you",
+    reference: "Numbers 6:24"
+  },
+  {
+    id: "sc-num-6-25",
+    hebrew: "יָאֵר יְהוָה פָּנָיו אֵלֶיךָ וִיחֻנֶּךָּ",
+    transliteration: "Ya'er Adonai panav elekha vi-chunnekka",
+    english: "The LORD make his face shine upon you and be gracious to you",
+    reference: "Numbers 6:25"
+  },
+  {
+    id: "sc-deut-4-29",
+    hebrew: "וּבִקַּשְׁתֶּם מִשָּׁם אֶת יְהוָה אֱלֹהֶיךָ וּמָצָאתָ",
+    transliteration: "U-viqqashtem mi-sham et Adonai Elohekha u-matsata",
+    english: "From there you will seek the LORD your God and you will find him",
+    reference: "Deuteronomy 4:29"
+  },
+  {
+    id: "sc-deut-6-4",
+    hebrew: "שְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד",
+    transliteration: "Shema Yisrael, Adonai Eloheinu, Adonai Echad",
+    english: "Hear, O Israel: The LORD our God, the LORD is one",
+    reference: "Deuteronomy 6:4"
+  },
+  {
+    id: "sc-deut-6-5",
+    hebrew: "וְאָהַבְתָּ אֵת יְהוָה אֱלֹהֶיךָ בְּכָל לְבָבְךָ",
+    transliteration: "Ve-ahavta et Adonai Elohekha be-khol levavekha",
+    english: "You shall love the LORD your God with all your heart",
+    reference: "Deuteronomy 6:5"
+  },
+  {
+    id: "sc-deut-31-6",
+    hebrew: "חִזְקוּ וְאִמְצוּ אַל תִּירְאוּ וְאַל תַּעַרְצוּ מִפְּנֵיהֶם",
+    transliteration: "Chizqu ve-imtsu, al tir'u ve-al ta'artsu mi-peneihem",
+    english: "Be strong and courageous. Do not fear or be in dread of them",
+    reference: "Deuteronomy 31:6"
+  },
+  {
+    id: "sc-deut-31-8",
+    hebrew: "וַיהוָה הוּא הַהֹלֵךְ לְפָנֶיךָ הוּא יִהְיֶה עִמָּךְ",
+    transliteration: "V'Adonai hu ha-holekh lefanekha, hu yihyeh immakh",
+    english: "It is the LORD who goes before you. He will be with you",
+    reference: "Deuteronomy 31:8"
+  },
+  {
+    id: "sc-deut-32-4",
+    hebrew: "הַצּוּר תָּמִים פָּעֳלוֹ כִּי כָל דְּרָכָיו מִשְׁפָּט",
+    transliteration: "Ha-tsur tamim po'olo, ki khol derakhav mishpat",
+    english: "The Rock, his work is perfect, for all his ways are justice",
+    reference: "Deuteronomy 32:4"
+  },
+
+  // ── Batch 3 (verses 41–60): Prophets (Nevi'im) ────────
+  {
+    id: "sc-josh-1-9",
+    hebrew: "חֲזַק וֶאֱמָץ אַל תַּעֲרֹץ וְאַל תֵּחָת",
+    transliteration: "Chazaq ve-emats, al ta'arots ve-al techat",
+    english: "Be strong and courageous. Do not be frightened, and do not be dismayed",
+    reference: "Joshua 1:9"
+  },
+  {
+    id: "sc-josh-24-15",
+    hebrew: "וְאָנֹכִי וּבֵיתִי נַעֲבֹד אֶת יְהוָה",
+    transliteration: "Ve-anokhi u-veti na'avod et Adonai",
+    english: "As for me and my house, we will serve the LORD",
+    reference: "Joshua 24:15"
+  },
+  {
+    id: "sc-1sam-16-7",
+    hebrew: "כִּי הָאָדָם יִרְאֶה לַעֵינַיִם וַיהוָה יִרְאֶה לַלֵּבָב",
+    transliteration: "Ki ha-adam yir'eh la-einayim, v'Adonai yir'eh la-levav",
+    english: "For man looks on the outward appearance, but the LORD looks on the heart",
+    reference: "1 Samuel 16:7"
+  },
+  {
+    id: "sc-1kings-19-12",
+    hebrew: "קוֹל דְּמָמָה דַקָּה",
+    transliteration: "Qol demamah daqqah",
+    english: "A still, small voice",
+    reference: "1 Kings 19:12"
+  },
+  {
+    id: "sc-isa-6-3",
+    hebrew: "קָדוֹשׁ קָדוֹשׁ קָדוֹשׁ יְהוָה צְבָאוֹת מְלֹא כָל הָאָרֶץ כְּבוֹדוֹ",
+    transliteration: "Qadosh qadosh qadosh Adonai tseva'ot, melo khol ha-arets kevodo",
+    english: "Holy, holy, holy is the LORD of hosts; the whole earth is full of his glory",
+    reference: "Isaiah 6:3"
+  },
+  {
+    id: "sc-isa-7-14",
+    hebrew: "הִנֵּה הָעַלְמָה הָרָה וְיֹלֶדֶת בֵּן וְקָרָאת שְׁמוֹ עִמָּנוּאֵל",
+    transliteration: "Hinneh ha-almah harah ve-yoledet ben, ve-qarat shemo Immanuel",
+    english: "Behold, the virgin shall conceive and bear a son, and shall call his name Immanuel",
+    reference: "Isaiah 7:14"
+  },
+  {
+    id: "sc-isa-9-5",
+    hebrew: "כִּי יֶלֶד יֻלַּד לָנוּ בֵּן נִתַּן לָנוּ",
+    transliteration: "Ki yeled yullad lanu, ben nittan lanu",
+    english: "For to us a child is born, to us a son is given",
+    reference: "Isaiah 9:5"
+  },
+  {
+    id: "sc-isa-40-8",
+    hebrew: "יָבֵשׁ חָצִיר נָבֵל צִיץ וּדְבַר אֱלֹהֵינוּ יָקוּם לְעוֹלָם",
+    transliteration: "Yavesh chatsir, navel tsits, u-devar Eloheinu yaqum le-olam",
+    english: "The grass withers, the flower fades, but the word of our God will stand forever",
+    reference: "Isaiah 40:8"
+  },
+  {
+    id: "sc-isa-40-31",
+    hebrew: "וְקוֹיֵ יְהוָה יַחֲלִיפוּ כֹחַ יַעֲלוּ אֵבֶר כַּנְּשָׁרִים",
+    transliteration: "Ve-qoyei Adonai yachalifu khoach, ya'alu ever ka-nesharim",
+    english: "But they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles",
+    reference: "Isaiah 40:31"
+  },
+  {
+    id: "sc-isa-41-10",
+    hebrew: "אַל תִּירָא כִּי עִמְּךָ אָנִי אַל תִּשְׁתָּע כִּי אֲנִי אֱלֹהֶיךָ",
+    transliteration: "Al tira ki immekha ani, al tishta ki ani Elohekha",
+    english: "Fear not, for I am with you; be not dismayed, for I am your God",
+    reference: "Isaiah 41:10"
+  },
+  {
+    id: "sc-isa-53-5",
+    hebrew: "וְהוּא מְחֹלָל מִפְּשָׁעֵנוּ מְדֻכָּא מֵעֲוֹנֹתֵינוּ",
+    transliteration: "Ve-hu mecholal mi-pesha'enu, medukka me-avonotenu",
+    english: "But he was pierced for our transgressions; he was crushed for our iniquities",
+    reference: "Isaiah 53:5"
+  },
+  {
+    id: "sc-isa-55-11",
+    hebrew: "כֵּן יִהְיֶה דְבָרִי אֲשֶׁר יֵצֵא מִפִּי לֹא יָשׁוּב אֵלַי רֵיקָם",
+    transliteration: "Ken yihyeh devari asher yetse mi-pi, lo yashuv elai reqam",
+    english: "So shall my word be that goes out from my mouth; it shall not return to me empty",
+    reference: "Isaiah 55:11"
+  },
+  {
+    id: "sc-jer-1-5",
+    hebrew: "בְּטֶרֶם אֶצָּרְךָ בַבֶּטֶן יְדַעְתִּיךָ",
+    transliteration: "Be-terem etsorkha va-beten yeda'tikha",
+    english: "Before I formed you in the womb I knew you",
+    reference: "Jeremiah 1:5"
+  },
+  {
+    id: "sc-jer-17-7",
+    hebrew: "בָּרוּךְ הַגֶּבֶר אֲשֶׁר יִבְטַח בַּיהוָה",
+    transliteration: "Barukh ha-gever asher yivtach b'Adonai",
+    english: "Blessed is the man who trusts in the LORD",
+    reference: "Jeremiah 17:7"
+  },
+  {
+    id: "sc-jer-29-11",
+    hebrew: "כִּי אָנֹכִי יָדַעְתִּי אֶת הַמַּחֲשָׁבֹת אֲשֶׁר אָנֹכִי חֹשֵׁב עֲלֵיכֶם",
+    transliteration: "Ki anokhi yada'ti et ha-machashavot asher anokhi choshev aleikhem",
+    english: "For I know the plans I have for you, declares the LORD",
+    reference: "Jeremiah 29:11"
+  },
+  {
+    id: "sc-jer-31-3",
+    hebrew: "אַהֲבַת עוֹלָם אֲהַבְתִּיךְ עַל כֵּן מְשַׁכְתִּיךְ חָסֶד",
+    transliteration: "Ahavat olam ahavtikh, al ken meshakhtikh chased",
+    english: "I have loved you with an everlasting love; therefore I have drawn you with lovingkindness",
+    reference: "Jeremiah 31:3"
+  },
+  {
+    id: "sc-ezek-36-26",
+    hebrew: "וְנָתַתִּי לָכֶם לֵב חָדָשׁ וְרוּחַ חֲדָשָׁה אֶתֵּן בְּקִרְבְּכֶם",
+    transliteration: "Ve-natatti lakhem lev chadash, ve-ruach chadashah etten be-qirbekhem",
+    english: "And I will give you a new heart, and a new spirit I will put within you",
+    reference: "Ezekiel 36:26"
+  },
+  {
+    id: "sc-hos-6-6",
+    hebrew: "כִּי חֶסֶד חָפַצְתִּי וְלֹא זָבַח",
+    transliteration: "Ki chesed chafatsti ve-lo zavach",
+    english: "For I desire steadfast love and not sacrifice",
+    reference: "Hosea 6:6"
+  },
+  {
+    id: "sc-mic-6-8",
+    hebrew: "הַשְׂכֵּל וַעֲשׂוֹת מִשְׁפָּט וְאַהֲבַת חֶסֶד וְהַצְנֵעַ לֶכֶת עִם אֱלֹהֶיךָ",
+    transliteration: "Haskel va-asot mishpat, ve-ahavat chesed, ve-hatsnea lekhet im Elohekha",
+    english: "To do justice, and to love kindness, and to walk humbly with your God",
+    reference: "Micah 6:8"
+  },
+  {
+    id: "sc-hab-2-14",
+    hebrew: "כִּי תִּמָּלֵא הָאָרֶץ לָדַעַת אֶת כְּבוֹד יְהוָה כַּמַּיִם יְכַסּוּ עַל יָם",
+    transliteration: "Ki timmale ha-arets la-da'at et kevod Adonai, ka-mayim yekhassu al yam",
+    english: "For the earth will be filled with the knowledge of the glory of the LORD as the waters cover the sea",
+    reference: "Habakkuk 2:14"
+  },
+
+  // ── Batch 4 (verses 61–80): More Psalms & Prophets ────
+  {
+    id: "sc-isa-43-1",
+    hebrew: "אַל תִּירָא כִּי גְאַלְתִּיךָ קָרָאתִי בְשִׁמְךָ לִי אָתָּה",
+    transliteration: "Al tira ki ge'altikha, qarati ve-shimkha, li attah",
+    english: "Fear not, for I have redeemed you; I have called you by name, you are mine",
+    reference: "Isaiah 43:1"
+  },
+  {
+    id: "sc-isa-26-3",
+    hebrew: "יֵצֶר סָמוּךְ תִּצֹּר שָׁלוֹם שָׁלוֹם כִּי בְךָ בָּטוּחַ",
+    transliteration: "Yetser samukh titsor shalom shalom, ki vekha batuach",
+    english: "You keep him in perfect peace whose mind is stayed on you, because he trusts in you",
+    reference: "Isaiah 26:3"
+  },
+  {
+    id: "sc-isa-54-10",
+    hebrew: "כִּי הֶהָרִים יָמוּשׁוּ וְהַגְּבָעוֹת תְּמוּטֶנָה וְחַסְדִּי מֵאִתֵּךְ לֹא יָמוּשׁ",
+    transliteration: "Ki he-harim yamushu ve-ha-geva'ot temutennah, ve-chasdi me-ittek lo yamush",
+    english: "Though the mountains be shaken and the hills be removed, yet my unfailing love for you will not be shaken",
+    reference: "Isaiah 54:10"
+  },
+  {
+    id: "sc-zech-4-6",
+    hebrew: "לֹא בְחַיִל וְלֹא בְכֹחַ כִּי אִם בְּרוּחִי אָמַר יְהוָה צְבָאוֹת",
+    transliteration: "Lo ve-chayil ve-lo ve-khoach, ki im be-ruchi, amar Adonai tseva'ot",
+    english: "Not by might, nor by power, but by my Spirit, says the LORD of hosts",
+    reference: "Zechariah 4:6"
+  },
+  {
+    id: "sc-mal-3-6",
+    hebrew: "כִּי אֲנִי יְהוָה לֹא שָׁנִיתִי",
+    transliteration: "Ki ani Adonai lo shaniti",
+    english: "For I the LORD do not change",
+    reference: "Malachi 3:6"
+  },
+  {
+    id: "sc-ps-23-4",
+    hebrew: "גַּם כִּי אֵלֵךְ בְּגֵיא צַלְמָוֶת לֹא אִירָא רָע כִּי אַתָּה עִמָּדִי",
+    transliteration: "Gam ki elekh be-ge tsalmavet, lo ira ra, ki attah immadi",
+    english: "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me",
+    reference: "Psalm 23:4"
+  },
+  {
+    id: "sc-ps-46-1",
+    hebrew: "אֱלֹהִים לָנוּ מַחֲסֶה וָעֹז עֶזְרָה בְצָרוֹת נִמְצָא מְאֹד",
+    transliteration: "Elohim lanu machaseh va-oz, ezrah ve-tsarot nimtsa me'od",
+    english: "God is our refuge and strength, a very present help in trouble",
+    reference: "Psalm 46:1"
+  },
+  {
+    id: "sc-ps-139-14",
+    hebrew: "אוֹדְךָ עַל כִּי נוֹרָאוֹת נִפְלֵיתִי",
+    transliteration: "Odekha al ki nora'ot nifleiti",
+    english: "I praise you, for I am fearfully and wonderfully made",
+    reference: "Psalm 139:14"
+  },
+  {
+    id: "sc-ps-139-23",
+    hebrew: "חָקְרֵנִי אֵל וְדַע לְבָבִי",
+    transliteration: "Choqreni El ve-da levavi",
+    english: "Search me, O God, and know my heart",
+    reference: "Psalm 139:23"
+  },
+  {
+    id: "sc-ps-91-1",
+    hebrew: "יֹשֵׁב בְּסֵתֶר עֶלְיוֹן בְּצֵל שַׁדַּי יִתְלוֹנָן",
+    transliteration: "Yoshev be-seter Elyon, be-tsel Shaddai yitlonan",
+    english: "He who dwells in the shelter of the Most High will rest in the shadow of the Almighty",
+    reference: "Psalm 91:1"
+  },
+  {
+    id: "sc-joel-3-1",
+    hebrew: "אֶשְׁפּוֹךְ אֶת רוּחִי עַל כָּל בָּשָׂר",
+    transliteration: "Eshpokh et ruchi al kol basar",
+    english: "I will pour out my Spirit on all flesh",
+    reference: "Joel 3:1"
+  },
+  {
+    id: "sc-amos-5-24",
+    hebrew: "וְיִגַּל כַּמַּיִם מִשְׁפָּט וּצְדָקָה כְּנַחַל אֵיתָן",
+    transliteration: "Ve-yiggal ka-mayim mishpat, u-tsedaqah ke-nachal eitan",
+    english: "But let justice roll down like waters, and righteousness like an ever-flowing stream",
+    reference: "Amos 5:24"
+  },
+  {
+    id: "sc-zeph-3-17",
+    hebrew: "יְהוָה אֱלֹהַיִךְ בְּקִרְבֵּךְ גִּבּוֹר יוֹשִׁיעַ",
+    transliteration: "Adonai Elohayikh be-qirbekh, gibbor yoshia",
+    english: "The LORD your God is in your midst, a mighty one who will save",
+    reference: "Zephaniah 3:17"
+  },
+  {
+    id: "sc-nah-1-7",
+    hebrew: "טוֹב יְהוָה לְמָעוֹז בְּיוֹם צָרָה",
+    transliteration: "Tov Adonai le-ma'oz be-yom tsarah",
+    english: "The LORD is good, a stronghold in the day of trouble",
+    reference: "Nahum 1:7"
+  },
+  {
+    id: "sc-ps-37-4",
+    hebrew: "וְהִתְעַנַּג עַל יְהוָה וְיִתֶּן לְךָ מִשְׁאֲלֹת לִבֶּךָ",
+    transliteration: "Ve-hit'annag al Adonai ve-yitten lekha mish'alot libbeka",
+    english: "Delight yourself in the LORD, and he will give you the desires of your heart",
+    reference: "Psalm 37:4"
+  },
+  {
+    id: "sc-ps-90-12",
+    hebrew: "לִמְנוֹת יָמֵינוּ כֵּן הוֹדַע וְנָבִא לְבַב חָכְמָה",
+    transliteration: "Limnot yamenu ken hoda, ve-navi levav chokhmah",
+    english: "So teach us to number our days that we may get a heart of wisdom",
+    reference: "Psalm 90:12"
+  },
+  {
+    id: "sc-ps-19-14",
+    hebrew: "יִהְיוּ לְרָצוֹן אִמְרֵי פִי וְהֶגְיוֹן לִבִּי לְפָנֶיךָ",
+    transliteration: "Yihyu le-ratson imrei fi, ve-hegyon libbi lefanekha",
+    english: "Let the words of my mouth and the meditation of my heart be acceptable in your sight",
+    reference: "Psalm 19:14"
+  },
+  {
+    id: "sc-ps-34-18",
+    hebrew: "קָרוֹב יְהוָה לְנִשְׁבְּרֵי לֵב",
+    transliteration: "Qarov Adonai le-nishberei lev",
+    english: "The LORD is near to the brokenhearted",
+    reference: "Psalm 34:18"
+  },
+  {
+    id: "sc-ps-55-22",
+    hebrew: "הַשְׁלֵךְ עַל יְהוָה יְהָבְךָ וְהוּא יְכַלְכְּלֶךָ",
+    transliteration: "Hashlekh al Adonai yehavkha, ve-hu yekhalkelekha",
+    english: "Cast your burden on the LORD, and he will sustain you",
+    reference: "Psalm 55:22"
+  },
+  {
+    id: "sc-ps-30-5",
+    hebrew: "בָּעֶרֶב יָלִין בֶּכִי וְלַבֹּקֶר רִנָּה",
+    transliteration: "Ba-erev yalin bekhi, ve-la-boqer rinnah",
+    english: "Weeping may tarry for the night, but joy comes with the morning",
+    reference: "Psalm 30:5"
+  },
+
+  // ── Batch 5 (verses 81–100): Writings (Ketuvim) ───────
+  {
+    id: "sc-prov-1-7",
+    hebrew: "יִרְאַת יְהוָה רֵאשִׁית דָּעַת",
+    transliteration: "Yir'at Adonai reshit da'at",
+    english: "The fear of the LORD is the beginning of knowledge",
+    reference: "Proverbs 1:7"
+  },
+  {
+    id: "sc-prov-3-5",
+    hebrew: "בְּטַח אֶל יְהוָה בְּכָל לִבֶּךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן",
+    transliteration: "Betach el Adonai be-khol libbeka, ve-el binatekha al tisha'en",
+    english: "Trust in the LORD with all your heart, and do not lean on your own understanding",
+    reference: "Proverbs 3:5"
+  },
+  {
+    id: "sc-prov-3-6",
+    hebrew: "בְּכָל דְּרָכֶיךָ דָעֵהוּ וְהוּא יְיַשֵּׁר אֹרְחֹתֶיךָ",
+    transliteration: "Be-khol derakhekha da'ehu, ve-hu yeyasher orchotekha",
+    english: "In all your ways acknowledge him, and he will make straight your paths",
+    reference: "Proverbs 3:6"
+  },
+  {
+    id: "sc-prov-4-23",
+    hebrew: "מִכָּל מִשְׁמָר נְצֹר לִבֶּךָ כִּי מִמֶּנּוּ תּוֹצְאוֹת חַיִּים",
+    transliteration: "Mi-kol mishmar netsor libbeka, ki mimmennu tots'ot chayyim",
+    english: "Keep your heart with all vigilance, for from it flow the springs of life",
+    reference: "Proverbs 4:23"
+  },
+  {
+    id: "sc-prov-16-3",
+    hebrew: "גֹּל אֶל יְהוָה מַעֲשֶׂיךָ וְיִכֹּנוּ מַחְשְׁבֹתֶיךָ",
+    transliteration: "Gol el Adonai ma'asekha, ve-yikkonu machshevotekha",
+    english: "Commit your work to the LORD, and your plans will be established",
+    reference: "Proverbs 16:3"
+  },
+  {
+    id: "sc-prov-22-6",
+    hebrew: "חֲנֹךְ לַנַּעַר עַל פִּי דַרְכּוֹ",
+    transliteration: "Chanokh la-na'ar al pi darko",
+    english: "Train up a child in the way he should go",
+    reference: "Proverbs 22:6"
+  },
+  {
+    id: "sc-prov-27-17",
+    hebrew: "בַּרְזֶל בְּבַרְזֶל יָחַד",
+    transliteration: "Barzel be-varzel yachad",
+    english: "Iron sharpens iron",
+    reference: "Proverbs 27:17"
+  },
+  {
+    id: "sc-prov-31-10",
+    hebrew: "אֵשֶׁת חַיִל מִי יִמְצָא וְרָחֹק מִפְּנִינִים מִכְרָהּ",
+    transliteration: "Eshet chayil mi yimtsa, ve-rachoq mi-peninim mikhrah",
+    english: "An excellent wife who can find? She is far more precious than jewels",
+    reference: "Proverbs 31:10"
+  },
+  {
+    id: "sc-eccl-3-1",
+    hebrew: "לַכֹּל זְמָן וְעֵת לְכָל חֵפֶץ תַּחַת הַשָּׁמָיִם",
+    transliteration: "La-kol zeman ve-et le-khol chefets tachat ha-shamayim",
+    english: "For everything there is a season, and a time for every matter under heaven",
+    reference: "Ecclesiastes 3:1"
+  },
+  {
+    id: "sc-eccl-12-13",
+    hebrew: "אֶת הָאֱלֹהִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר כִּי זֶה כָּל הָאָדָם",
+    transliteration: "Et ha-Elohim yera, ve-et mitsvotav shemor, ki zeh kol ha-adam",
+    english: "Fear God and keep his commandments, for this is the whole duty of man",
+    reference: "Ecclesiastes 12:13"
+  },
+  {
+    id: "sc-song-8-6",
+    hebrew: "שִׂימֵנִי כַחוֹתָם עַל לִבֶּךָ כִּי עַזָּה כַמָּוֶת אַהֲבָה",
+    transliteration: "Simeni ka-chotam al libbeka, ki azzah ka-mavet ahavah",
+    english: "Set me as a seal upon your heart, for love is strong as death",
+    reference: "Song of Songs 8:6"
+  },
+  {
+    id: "sc-ruth-1-16",
+    hebrew: "כִּי אֶל אֲשֶׁר תֵּלְכִי אֵלֵךְ וּבַאֲשֶׁר תָּלִינִי אָלִין",
+    transliteration: "Ki el asher telkhi elekh, u-va-asher talini alin",
+    english: "Where you go I will go, and where you lodge I will lodge",
+    reference: "Ruth 1:16"
+  },
+  {
+    id: "sc-lam-3-22",
+    hebrew: "חַסְדֵי יְהוָה כִּי לֹא תָמְנוּ כִּי לֹא כָלוּ רַחֲמָיו",
+    transliteration: "Chasdei Adonai ki lo tamnu, ki lo khalu rachamav",
+    english: "The steadfast love of the LORD never ceases; his mercies never come to an end",
+    reference: "Lamentations 3:22"
+  },
+  {
+    id: "sc-lam-3-23",
+    hebrew: "חֲדָשִׁים לַבְּקָרִים רַבָּה אֱמוּנָתֶךָ",
+    transliteration: "Chadashim la-beqarim, rabbah emunatekha",
+    english: "They are new every morning; great is your faithfulness",
+    reference: "Lamentations 3:23"
+  },
+  {
+    id: "sc-dan-2-21",
+    hebrew: "וְהוּא מְהַשְׁנֵא עִדָּנַיָּא וְזִמְנַיָּא",
+    transliteration: "Ve-hu mehashnei iddanaya ve-zimnaya",
+    english: "He changes times and seasons; he removes kings and sets up kings",
+    reference: "Daniel 2:21"
+  },
+  {
+    id: "sc-1chr-16-34",
+    hebrew: "הוֹדוּ לַיהוָה כִּי טוֹב כִּי לְעוֹלָם חַסְדּוֹ",
+    transliteration: "Hodu l'Adonai ki tov, ki le-olam chasdo",
+    english: "Oh give thanks to the LORD, for he is good; for his steadfast love endures forever",
+    reference: "1 Chronicles 16:34"
+  },
+  {
+    id: "sc-2chr-7-14",
+    hebrew: "וְיִכָּנְעוּ עַמִּי אֲשֶׁר נִקְרָא שְׁמִי עֲלֵיהֶם וְיִתְפַּלְלוּ",
+    transliteration: "Ve-yikkane'u ammi asher niqra shemi aleihem, ve-yitpallelu",
+    english: "If my people who are called by my name humble themselves, and pray",
+    reference: "2 Chronicles 7:14"
+  },
+  {
+    id: "sc-neh-8-10",
+    hebrew: "כִּי חֶדְוַת יְהוָה הִיא מָעֻזְּכֶם",
+    transliteration: "Ki chedvat Adonai hi ma'uzzkhem",
+    english: "For the joy of the LORD is your strength",
+    reference: "Nehemiah 8:10"
+  },
+  {
+    id: "sc-job-19-25",
+    hebrew: "וַאֲנִי יָדַעְתִּי גֹּאֲלִי חָי",
+    transliteration: "Va-ani yada'ti go'ali chai",
+    english: "For I know that my Redeemer lives",
+    reference: "Job 19:25"
+  },
+  {
+    id: "sc-prov-18-10",
+    hebrew: "מִגְדַּל עֹז שֵׁם יְהוָה בּוֹ יָרוּץ צַדִּיק וְנִשְׂגָּב",
+    transliteration: "Migdal oz shem Adonai, bo yaruts tsaddiq ve-nisgav",
+    english: "The name of the LORD is a strong tower; the righteous man runs into it and is safe",
+    reference: "Proverbs 18:10"
   }
 ];
 

@@ -245,7 +245,7 @@
       '<div class="stat-card"><div class="stat-value">' + pctLR + '%</div><div class="stat-label">Letters</div></div>' +
       '<div class="stat-card"><div class="stat-value">' + pctV + '%</div><div class="stat-label">Vocab</div></div>' +
       '<div class="stat-card"><div class="stat-value">' + pctLQ + '%</div><div class="stat-label">Quiz</div></div>' +
-      '<div class="stat-card"><div class="stat-value">' + pctPS + '%</div><div class="stat-label">Psalms</div></div>';
+      '<div class="stat-card"><div class="stat-value">' + pctPS + '%</div><div class="stat-label">Scripture</div></div>';
 
     // Problem areas — combine all trackers
     var allMistakes = [];
@@ -281,7 +281,7 @@
       var letter = HEBREW_LETTERS.find(function (l) { return l.id === id; });
       var nikkud = NIKKUD.find(function (n) { return n.id === id; });
       var word = VOCABULARY.find(function (w) { return w.id === id; });
-      var psalm = PSALMS_SENTENCES.find(function (p) { return p.id === id; });
+      var psalm = SCRIPTURE.find(function (p) { return p.id === id; });
       var li = document.createElement("li");
       if (letter) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(letter.letter) + '</span> ' +
@@ -504,7 +504,15 @@
     document.getElementById("vocab-progress-text").textContent = text;
   }
 
-  // ─── Psalms Sentences ────────────────────────────────────
+  // ─── Scripture ──────────────────────────────────────────
+
+  var SCRIPTURE_BATCH_SIZE = 20;
+
+  function getUnlockedScripture() {
+    var totalKnown = Object.keys(state.psalmsKnown).length;
+    var unlocked = SCRIPTURE_BATCH_SIZE * (Math.floor(totalKnown / SCRIPTURE_BATCH_SIZE) + 1);
+    return SCRIPTURE.slice(0, Math.min(unlocked, SCRIPTURE.length));
+  }
 
   function nextPsalm() {
     state.psFlipped = false;
@@ -515,9 +523,10 @@
     flashcard.style.transition = "";
     document.getElementById("ps-actions").style.display = "none";
 
-    if (PSALMS_SENTENCES.length === 0) return;
+    var pool = getUnlockedScripture();
+    if (pool.length === 0) return;
 
-    var chosen = pickWeighted(PSALMS_SENTENCES, state.trackers.psalms);
+    var chosen = pickWeighted(pool, state.trackers.psalms);
     state.currentPsalm = chosen;
 
     document.getElementById("ps-hebrew").textContent = displayHebrew(chosen.hebrew);
@@ -567,12 +576,21 @@
   }
 
   function updatePsalmsProgress() {
-    var known = PSALMS_SENTENCES.filter(function (p) { return state.psalmsKnown[p.id]; }).length;
-    var total = PSALMS_SENTENCES.length;
-    var pct = total ? Math.round(known / total * 100) : 0;
+    var unlocked = getUnlockedScripture();
+    var totalKnown = Object.keys(state.psalmsKnown).length;
+    var pct = unlocked.length ? Math.round(totalKnown / unlocked.length * 100) : 0;
     document.getElementById("ps-progress-fill").style.width = pct + "%";
-    document.getElementById("ps-progress-text").textContent =
-      known + " of " + total + " verses mastered (" + pct + "%)";
+
+    var level = Math.floor(totalKnown / SCRIPTURE_BATCH_SIZE) + 1;
+    var totalLevels = Math.ceil(SCRIPTURE.length / SCRIPTURE_BATCH_SIZE);
+    var moreToUnlock = SCRIPTURE.length > unlocked.length;
+    var untilNext = moreToUnlock ? (level * SCRIPTURE_BATCH_SIZE - totalKnown) : 0;
+    var text = totalKnown + " of " + unlocked.length + " verses mastered";
+    if (moreToUnlock) {
+      text += " \u2014 " + untilNext + " more to unlock next batch";
+    }
+    text += " (Level " + level + " of " + totalLevels + ")";
+    document.getElementById("ps-progress-text").textContent = text;
   }
 
   // ─── Letter Quiz ──────────────────────────────────────────
