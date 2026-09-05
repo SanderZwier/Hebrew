@@ -444,6 +444,10 @@ const NIKKUD = [
   }
 ];
 
+// Vocabulary is unlocked positionally: words become available in
+// order, one block of VOCAB_BATCH_SIZE at a time (see app.js). The
+// "Wave" comments below only mark where each authored block begins —
+// they are not category or count boundaries.
 const VOCABULARY = [
   // Theological terms
   {
@@ -914,7 +918,7 @@ const VOCABULARY = [
     frequency: 425
   },
 
-  // ── Batch 2 (words 56–105) ──────────────────────────────
+  // ── Wave 2 ──────────────────────────────────────────────
 
   // Theology 2
   {
@@ -1304,7 +1308,7 @@ const VOCABULARY = [
     frequency: 498
   },
 
-  // ── Batch 3 (words 106–155) ─────────────────────────────
+  // ── Wave 3 ──────────────────────────────────────────────
 
   // Theology 3
   {
@@ -1676,7 +1680,7 @@ const VOCABULARY = [
     frequency: 348
   },
 
-  // ── Batch 4 (words 156–205) ─────────────────────────────
+  // ── Wave 4 ──────────────────────────────────────────────
 
   // Theology 4
   {

@@ -7,6 +7,8 @@
   const state = {
     currentSection: "home",
     showNikkud: true,
+    theme: "auto",
+    muted: false,
     scores: {
       letterRecog: { correct: 0, total: 0 },
       vocab: { correct: 0, total: 0 },
@@ -86,37 +88,124 @@
     return state.showNikkud ? text : stripNikkud(text);
   }
 
+  // Strip vowel points and cantillation but KEEP the shin/sin dots
+  // (U+05C1 / U+05C2), which are the only thing distinguishing \u05E9\u05C1 from \u05E9\u05C2.
+  function stripVowelsKeepSinDot(text) {
+    return text.replace(/[\u0591-\u05C0\u05C3-\u05C7]/g, "");
+  }
+
+  // For single letter/nikkud glyphs shown in quizzes: like displayHebrew
+  // but preserves the sin/shin dot so the two never collapse visually.
+  function displayLetter(text) {
+    return state.showNikkud ? text : stripVowelsKeepSinDot(text);
+  }
+
+  // Nikkud quiz items must never be stripped (the point IS the vowel);
+  // letter items use displayLetter so shin/sin stay distinct.
+  function displayQuizItem(item) {
+    return item._isNikkud ? item.letter : displayLetter(item.letter);
+  }
+
+  function confusabilityRank(item, correct) {
+    if (item.id === correct.variant || item.variant === correct.id) return 2;
+    if (item.baseId === correct.id || item.id === correct.baseId) return 2;
+    if (item.baseId && item.baseId === correct.baseId) return 2;
+    if (correct.group && item.group === correct.group) return 1;
+    if (correct.type && item.type === correct.type) return 1;
+    return 0;
+  }
+
   function pickDistractors(correct, pool, count) {
-    const others = pool.filter(function (item) { return item.id !== correct.id; });
-    return shuffle(others).slice(0, count);
+    var tiers = { 2: [], 1: [], 0: [] };
+    pool.forEach(function (item) {
+      if (item.id === correct.id) return;
+      tiers[confusabilityRank(item, correct)].push(item);
+    });
+    var picked = [];
+    [2, 1, 0].forEach(function (rank) {
+      if (picked.length >= count) return;
+      picked = picked.concat(shuffle(tiers[rank]).slice(0, count - picked.length));
+    });
+    return picked;
   }
 
   // ─── Persistence ──────────────────────────────────────────
 
+  var STORAGE_KEY = "hebrew-app-state";
+  var THEME_KEY = "hebrew-app-theme";
+  var QUIZ_MODES = ["letterRecog", "vocab", "letterQuiz", "psalms"];
+
+  // A single plain-object snapshot of everything worth persisting or
+  // exporting. Used by saveState, the Export backup action, and as the
+  // shape validated on import.
+  function serializeState() {
+    return {
+      version: 1,
+      savedAt: new Date().toISOString(),
+      scores: state.scores,
+      trackers: state.trackers,
+      vocabKnown: state.vocabKnown,
+      psalmsKnown: state.psalmsKnown,
+      prefs: {
+        showNikkud: state.showNikkud,
+        currentCategory: state.currentCategory,
+        letterRecogFilter: state.letterRecogFilter,
+        theme: state.theme,
+        muted: state.muted
+      }
+    };
+  }
+
+  function isPlainObject(v) {
+    return v && typeof v === "object" && !Array.isArray(v);
+  }
+
+  // Validate types and apply a serializeState()-shaped object onto state,
+  // backfilling any missing score/tracker keys so older or partial saves
+  // don't leave a mode undefined.
+  function applySavedData(data) {
+    if (!isPlainObject(data)) return false;
+
+    if (isPlainObject(data.scores)) state.scores = data.scores;
+    if (isPlainObject(data.trackers)) state.trackers = data.trackers;
+    if (isPlainObject(data.vocabKnown)) state.vocabKnown = data.vocabKnown;
+    if (isPlainObject(data.psalmsKnown)) state.psalmsKnown = data.psalmsKnown;
+
+    QUIZ_MODES.forEach(function (mode) {
+      if (!isPlainObject(state.scores[mode])) {
+        state.scores[mode] = { correct: 0, total: 0 };
+      }
+      if (!isPlainObject(state.trackers[mode])) {
+        state.trackers[mode] = {};
+      }
+    });
+
+    var prefs = data.prefs;
+    if (isPlainObject(prefs)) {
+      if (typeof prefs.showNikkud === "boolean") state.showNikkud = prefs.showNikkud;
+      if (typeof prefs.currentCategory === "string") state.currentCategory = prefs.currentCategory;
+      if (typeof prefs.letterRecogFilter === "string") state.letterRecogFilter = prefs.letterRecogFilter;
+      if (prefs.theme === "auto" || prefs.theme === "light" || prefs.theme === "dark") {
+        state.theme = prefs.theme;
+      }
+      if (typeof prefs.muted === "boolean") state.muted = prefs.muted;
+    }
+    return true;
+  }
+
   function saveState() {
     try {
-      localStorage.setItem("hebrew-app-state", JSON.stringify({
-        scores: state.scores,
-        trackers: state.trackers,
-        vocabKnown: state.vocabKnown,
-        psalmsKnown: state.psalmsKnown
-      }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(serializeState()));
+      // Mirror the theme separately so the pre-paint inline script in
+      // index.html can read it without parsing the whole state blob.
+      localStorage.setItem(THEME_KEY, state.theme);
     } catch (e) { /* storage full or unavailable */ }
   }
 
   function loadState() {
     try {
-      const saved = localStorage.getItem("hebrew-app-state");
-      if (saved) {
-        const data = JSON.parse(saved);
-        if (data.scores) state.scores = data.scores;
-        if (data.trackers) state.trackers = data.trackers;
-        if (data.vocabKnown) state.vocabKnown = data.vocabKnown;
-        if (data.psalmsKnown) state.psalmsKnown = data.psalmsKnown;
-        // Ensure new keys exist for older saved states
-        if (!state.scores.psalms) state.scores.psalms = { correct: 0, total: 0 };
-        if (!state.trackers.psalms) state.trackers.psalms = {};
-      }
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) applySavedData(JSON.parse(saved));
     } catch (e) { /* corrupt data, start fresh */ }
   }
 
@@ -154,6 +243,7 @@
   document.addEventListener("click", unlockAudio, true);
 
   function playCorrectSound() {
+    if (state.muted) return;
     try {
       var ctx = getAudioCtx();
       var now = ctx.currentTime;
@@ -176,6 +266,7 @@
   }
 
   function playIncorrectSound() {
+    if (state.muted) return;
     try {
       var ctx = getAudioCtx();
       var now = ctx.currentTime;
@@ -193,6 +284,79 @@
       osc.start(now);
       osc.stop(now + 0.5);
     } catch (e) { /* audio not supported */ }
+  }
+
+  // ─── Pronunciation (Web Speech API) ───────────────────────
+
+  var hebrewVoice = null;
+
+  function findHebrewVoice() {
+    if (!("speechSynthesis" in window)) return;
+    var voices = window.speechSynthesis.getVoices();
+    hebrewVoice = null;
+    for (var i = 0; i < voices.length; i++) {
+      if (/^(he|iw)\b/i.test(voices[i].lang)) {
+        hebrewVoice = voices[i];
+        break;
+      }
+    }
+    document.body.classList.toggle("speech-ready", !!hebrewVoice);
+    if (state.currentSection === "settings") renderSettings();
+  }
+
+  function initSpeech() {
+    if (!("speechSynthesis" in window)) return;
+    findHebrewVoice();
+    // Voices load asynchronously in most browsers; re-check when ready.
+    window.speechSynthesis.onvoiceschanged = findHebrewVoice;
+  }
+
+  function speak(text) {
+    if (!hebrewVoice || !("speechSynthesis" in window) || !text) return;
+    try {
+      window.speechSynthesis.cancel();
+      var utter = new SpeechSynthesisUtterance(text);
+      utter.voice = hebrewVoice;
+      utter.lang = hebrewVoice.lang;
+      utter.rate = 0.75;
+      window.speechSynthesis.speak(utter);
+    } catch (e) { /* speech not supported */ }
+  }
+
+  // Build a 🔊 button that speaks the given text (or a lazily resolved
+  // text via a getter function). stopProp prevents a card flip.
+  function makeSpeakButton(label, getText, stopProp) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "speak-btn";
+    btn.setAttribute("aria-label", label);
+    btn.textContent = "🔊";
+    btn.addEventListener("click", function (e) {
+      if (stopProp) e.stopPropagation();
+      speak(typeof getText === "function" ? getText() : getText);
+    });
+    return btn;
+  }
+
+  // ─── Theme ────────────────────────────────────────────────
+
+  function resolveTheme(theme) {
+    if (theme === "light" || theme === "dark") return theme;
+    var prefersDark = window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return prefersDark ? "dark" : "light";
+  }
+
+  function applyTheme() {
+    document.documentElement.setAttribute("data-theme", resolveTheme(state.theme));
+  }
+
+  function watchSystemTheme() {
+    if (!window.matchMedia) return;
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var handler = function () { if (state.theme === "auto") applyTheme(); };
+    if (mq.addEventListener) mq.addEventListener("change", handler);
+    else if (mq.addListener) mq.addListener(handler);
   }
 
   // ─── Navigation ───────────────────────────────────────────
@@ -216,6 +380,7 @@
     if (name === "psalms") nextPsalm();
     if (name === "reference") renderReference();
     if (name === "home") renderHome();
+    if (name === "settings") renderSettings();
 
     updateHeaderScore();
   }
@@ -247,10 +412,10 @@
       '<div class="stat-card"><div class="stat-value">' + pctLQ + '%</div><div class="stat-label">Quiz</div></div>' +
       '<div class="stat-card"><div class="stat-value">' + pctPS + '%</div><div class="stat-label">Scripture</div></div>';
 
-    // Problem areas — combine all trackers
-    var allMistakes = [];
+    // Problem areas — combine all trackers, keeping the highest-weight
+    // record per item, then reuse getTopMistakes to rank them.
     var combined = {};
-    ["letterRecog", "vocab", "letterQuiz", "psalms"].forEach(function (mode) {
+    QUIZ_MODES.forEach(function (mode) {
       Object.entries(state.trackers[mode]).forEach(function (e) {
         var id = e[0], d = e[1];
         if (!combined[id] || combined[id].weight < d.weight) {
@@ -259,10 +424,7 @@
       });
     });
 
-    allMistakes = Object.entries(combined)
-      .filter(function (e) { return e[1].wrong > 0; })
-      .sort(function (a, b) { return b[1].weight - a[1].weight; })
-      .slice(0, 5);
+    var allMistakes = getTopMistakes(combined, 5);
 
     var problemDiv = document.getElementById("problem-areas");
     var problemList = document.getElementById("problem-list");
@@ -276,25 +438,27 @@
     problemList.innerHTML = "";
 
     allMistakes.forEach(function (entry) {
-      var id = entry[0];
-      // Find the item in letters, nikkud, or vocab
+      var id = entry.id;
+      var wrong = entry.data.wrong;
+      var times = ' — missed ' + wrong + ' time' + (wrong === 1 ? '' : 's') + '</span>';
+      // Find the item in letters, nikkud, vocab, or scripture
       var letter = HEBREW_LETTERS.find(function (l) { return l.id === id; });
       var nikkud = NIKKUD.find(function (n) { return n.id === id; });
       var word = VOCABULARY.find(function (w) { return w.id === id; });
       var psalm = SCRIPTURE.find(function (p) { return p.id === id; });
       var li = document.createElement("li");
       if (letter) {
-        li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(letter.letter) + '</span> ' +
-          '<span class="problem-name">' + letter.name + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+        li.innerHTML = '<span class="problem-hebrew">' + displayLetter(letter.letter) + '</span> ' +
+          '<span class="problem-name">' + letter.name + times;
       } else if (nikkud) {
         li.innerHTML = '<span class="problem-hebrew">' + nikkud.example + '</span> ' +
-          '<span class="problem-name">' + nikkud.name + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+          '<span class="problem-name">' + nikkud.name + times;
       } else if (word) {
         li.innerHTML = '<span class="problem-hebrew">' + displayHebrew(word.hebrew) + '</span> ' +
-          '<span class="problem-name">' + word.english + ' — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+          '<span class="problem-name">' + word.english + times;
       } else if (psalm) {
         li.innerHTML = '<span class="problem-hebrew">' + psalm.reference + '</span> ' +
-          '<span class="problem-name">' + psalm.english.substring(0, 40) + '… — missed ' + entry[1].wrong + ' time' + (entry[1].wrong === 1 ? '' : 's') + '</span>';
+          '<span class="problem-name">' + psalm.english.substring(0, 40) + '…' + times;
       }
       problemList.appendChild(li);
     });
@@ -310,23 +474,31 @@
       letter: n.example,
       name: n.name,
       sound: n.sound,
+      type: n.type,
       _isNikkud: true
     };
   }
 
+  // Returns {questions, distractors}: the set to draw prompts from and the
+  // (possibly wider) set to draw wrong answers from. The "sofit" filter has
+  // only 5 final forms, so its distractors are widened with the base
+  // letters; nikkud items stay unstripped throughout.
   function getLetterRecogPool() {
     var filter = state.letterRecogFilter;
-    if (filter === "letters") {
-      return HEBREW_LETTERS.filter(function (l) { return !l.isFinal; });
-    }
+    var nikkudItems = NIKKUD.map(nikkudToQuizItem);
     if (filter === "sofit") {
-      return HEBREW_LETTERS.filter(function (l) { return l.isFinal; });
+      var finals = HEBREW_LETTERS.filter(function (l) { return l.isFinal; });
+      var baseIds = finals.map(function (l) { return l.baseId; });
+      var bases = HEBREW_LETTERS.filter(function (l) { return baseIds.indexOf(l.id) !== -1; });
+      return { questions: finals, distractors: finals.concat(bases) };
     }
-    if (filter === "nikkud") {
-      return NIKKUD.map(nikkudToQuizItem);
+    if (filter === "nikkud") return { questions: nikkudItems, distractors: nikkudItems };
+    if (filter === "all") {
+      var all = HEBREW_LETTERS.concat(nikkudItems);
+      return { questions: all, distractors: all };
     }
-    // "all"
-    return HEBREW_LETTERS.concat(NIKKUD.map(nikkudToQuizItem));
+    var nonFinal = HEBREW_LETTERS.filter(function (l) { return !l.isFinal; });
+    return { questions: nonFinal, distractors: nonFinal };
   }
 
   function nextLetterRecog() {
@@ -336,13 +508,13 @@
     feedback.className = "quiz-feedback";
 
     var pool = getLetterRecogPool();
-    if (pool.length < 4) return; // need at least 4 items for choices
+    if (pool.questions.length === 0 || pool.distractors.length < 4) return;
 
-    var chosen = pickWeighted(pool, state.trackers.letterRecog);
-    var distractors = pickDistractors(chosen, pool, 3);
+    var chosen = pickWeighted(pool.questions, state.trackers.letterRecog);
+    var distractors = pickDistractors(chosen, pool.distractors, 3);
     var options = shuffle([chosen].concat(distractors));
 
-    document.getElementById("lr-letter").textContent = displayHebrew(chosen.letter);
+    document.getElementById("lr-letter").textContent = displayQuizItem(chosen);
     document.getElementById("lr-correct").textContent = state.scores.letterRecog.correct;
     document.getElementById("lr-total").textContent = state.scores.letterRecog.total;
 
@@ -352,6 +524,7 @@
     options.forEach(function (opt) {
       var btn = document.createElement("button");
       btn.className = "choice-btn";
+      btn.dataset.itemId = opt.id;
       btn.textContent = opt.name;
       btn.addEventListener("click", function () {
         if (state.answering) return;
@@ -383,8 +556,8 @@
     var buttons = container.querySelectorAll(".choice-btn");
     buttons.forEach(function (btn) {
       btn.disabled = true;
-      if (btn.textContent === correct.name) btn.classList.add("correct");
-      if (btn.textContent === selected.name && !isCorrect) btn.classList.add("incorrect");
+      if (btn.dataset.itemId === correct.id) btn.classList.add("correct");
+      if (btn.dataset.itemId === selected.id && !isCorrect) btn.classList.add("incorrect");
     });
 
     var feedback = document.getElementById("lr-feedback");
@@ -616,7 +789,8 @@
     options.forEach(function (opt) {
       var btn = document.createElement("button");
       btn.className = "choice-btn";
-      btn.textContent = displayHebrew(opt.letter);
+      btn.dataset.itemId = opt.id;
+      btn.textContent = displayLetter(opt.letter);
       btn.addEventListener("click", function () {
         if (state.answering) return;
         handleLetterQuizAnswer(opt, chosen, choicesDiv);
@@ -646,18 +820,18 @@
     var buttons = container.querySelectorAll(".choice-btn");
     buttons.forEach(function (btn) {
       btn.disabled = true;
-      if (stripNikkud(btn.textContent) === stripNikkud(correct.letter)) btn.classList.add("correct");
-      if (btn.textContent === displayHebrew(selected.letter) && !isCorrect) btn.classList.add("incorrect");
+      if (btn.dataset.itemId === correct.id) btn.classList.add("correct");
+      if (btn.dataset.itemId === selected.id && !isCorrect) btn.classList.add("incorrect");
     });
 
     var feedback = document.getElementById("lq-feedback");
     if (isCorrect) {
       playCorrectSound();
-      feedback.textContent = "Correct! " + correct.name + " is " + displayHebrew(correct.letter);
+      feedback.textContent = "Correct! " + correct.name + " is " + displayLetter(correct.letter);
       feedback.className = "quiz-feedback show-correct";
     } else {
       playIncorrectSound();
-      feedback.textContent = "The correct letter for " + correct.name + " is " + displayHebrew(correct.letter);
+      feedback.textContent = "The correct letter for " + correct.name + " is " + displayLetter(correct.letter);
       feedback.className = "quiz-feedback show-incorrect";
     }
 
@@ -681,29 +855,44 @@
 
   // ─── Reference ────────────────────────────────────────────
 
+  // Build one reference row: a glyph cell (with a 🔊 button) followed by
+  // plain text cells.
+  function refRow(glyph, glyphClass, speakText, speakLabel, cells) {
+    var tr = document.createElement("tr");
+    var glyphCell = document.createElement("td");
+    glyphCell.className = glyphClass;
+    var glyphSpan = document.createElement("span");
+    glyphSpan.textContent = glyph;
+    glyphCell.appendChild(glyphSpan);
+    glyphCell.appendChild(makeSpeakButton(speakLabel, speakText, false));
+    tr.appendChild(glyphCell);
+    cells.forEach(function (text) {
+      var td = document.createElement("td");
+      td.textContent = text;
+      tr.appendChild(td);
+    });
+    return tr;
+  }
+
   function renderReference() {
     var tbody = document.getElementById("ref-alphabet-body");
     tbody.innerHTML = "";
     HEBREW_LETTERS.forEach(function (l) {
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td class="ref-letter">' + displayHebrew(l.letter) + '</td>' +
-        '<td>' + l.name + '</td>' +
-        '<td>' + l.sound + '</td>' +
-        '<td>' + l.value + '</td>';
-      tbody.appendChild(tr);
+      tbody.appendChild(refRow(
+        displayLetter(l.letter), "ref-letter",
+        l.nameHebrew, "Pronounce " + l.name,
+        [l.name, l.sound, l.value]
+      ));
     });
 
     var nbody = document.getElementById("ref-nikkud-body");
     nbody.innerHTML = "";
     NIKKUD.forEach(function (n) {
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td class="ref-example">' + n.example + '</td>' +
-        '<td>' + n.name + '</td>' +
-        '<td>' + n.sound + '</td>' +
-        '<td>' + n.type + '</td>';
-      nbody.appendChild(tr);
+      nbody.appendChild(refRow(
+        n.example, "ref-example",
+        n.example, "Pronounce " + n.name,
+        [n.name, n.sound, n.type]
+      ));
     });
   }
 
@@ -711,6 +900,7 @@
 
   function handleNikkudToggle() {
     state.showNikkud = document.getElementById("nikkud-switch").checked;
+    saveState();
     // Re-render current section
     var section = state.currentSection;
     if (section === "letter-recog") nextLetterRecog();
@@ -733,10 +923,139 @@
     });
   }
 
+  // ─── Settings ─────────────────────────────────────────────
+
+  function setSettingsStatus(msg) {
+    var el = document.getElementById("settings-status");
+    if (el) el.textContent = msg || "";
+  }
+
+  // Reflect current state into every control (used on init and after an
+  // imported backup replaces preferences).
+  function syncControlsFromState() {
+    var nikkud = document.getElementById("nikkud-switch");
+    if (nikkud) nikkud.checked = state.showNikkud;
+    var category = document.getElementById("category-select");
+    if (category) category.value = state.currentCategory;
+    var filter = document.getElementById("lr-filter");
+    if (filter) filter.value = state.letterRecogFilter;
+    var theme = document.getElementById("theme-select");
+    if (theme) theme.value = state.theme;
+    var mute = document.getElementById("mute-switch");
+    if (mute) mute.checked = state.muted;
+  }
+
+  function renderSettings() {
+    var themeSelect = document.getElementById("theme-select");
+    if (themeSelect) themeSelect.value = state.theme;
+    var muteSwitch = document.getElementById("mute-switch");
+    if (muteSwitch) muteSwitch.checked = state.muted;
+
+    var note = document.getElementById("settings-speech-note");
+    if (note) {
+      if (hebrewVoice) {
+        note.textContent = "A Hebrew voice was found on this device (" + hebrewVoice.name +
+          "). Device voices speak Modern Hebrew, which is only an approximation of Biblical pronunciation.";
+      } else {
+        note.textContent = "No Hebrew voice was found on this device, so the pronunciation buttons are hidden. " +
+          "If one is installed later it will speak Modern Hebrew, an approximation of Biblical pronunciation.";
+      }
+    }
+
+    var summary = document.getElementById("settings-summary");
+    if (summary) {
+      var s = state.scores;
+      var totalCorrect = QUIZ_MODES.reduce(function (n, m) { return n + s[m].correct; }, 0);
+      var totalAnswered = QUIZ_MODES.reduce(function (n, m) { return n + s[m].total; }, 0);
+      var vocabCount = Object.keys(state.vocabKnown).length;
+      var verseCount = Object.keys(state.psalmsKnown).length;
+      summary.textContent = totalCorrect + " correct of " + totalAnswered + " answered — " +
+        vocabCount + " words and " + verseCount + " verses mastered.";
+    }
+  }
+
+  function handleThemeChange(e) {
+    state.theme = e.target.value;
+    applyTheme();
+    saveState();
+    renderSettings();
+  }
+
+  function handleMuteChange(e) {
+    state.muted = e.target.checked;
+    saveState();
+  }
+
+  function exportBackup() {
+    try {
+      var json = JSON.stringify(serializeState(), null, 2);
+      var blob = new Blob([json], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "hebrew-progress-backup.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setSettingsStatus("Backup downloaded.");
+    } catch (e) {
+      setSettingsStatus("Could not export a backup on this device.");
+    }
+  }
+
+  function importBackup(file) {
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var data;
+      try {
+        data = JSON.parse(reader.result);
+      } catch (e) {
+        setSettingsStatus("That file is not a valid backup.");
+        return;
+      }
+      if (applySavedData(data)) {
+        saveState();
+        syncControlsFromState();
+        applyTheme();
+        renderHome();
+        updateHeaderScore();
+        renderSettings();
+        setSettingsStatus("Backup imported.");
+      } else {
+        setSettingsStatus("That file is not a valid backup.");
+      }
+    };
+    reader.onerror = function () { setSettingsStatus("Could not read that file."); };
+    reader.readAsText(file);
+  }
+
+  function resetProgress() {
+    if (!window.confirm("Reset all progress? This clears your scores and mastered words and verses. Your preferences are kept.")) {
+      return;
+    }
+    QUIZ_MODES.forEach(function (mode) {
+      state.scores[mode] = { correct: 0, total: 0 };
+      state.trackers[mode] = {};
+    });
+    state.vocabKnown = {};
+    state.psalmsKnown = {};
+    state.streaks = { letterRecog: 0, letterQuiz: 0 };
+    saveState();
+    updateHeaderScore();
+    renderHome();
+    renderSettings();
+    setSettingsStatus("Progress reset.");
+  }
+
   // ─── Init ─────────────────────────────────────────────────
 
   function init() {
     loadState();
+    applyTheme();
+    watchSystemTheme();
+    initSpeech();
 
     // Nav buttons
     document.querySelectorAll(".nav-btn").forEach(function (btn) {
@@ -753,22 +1072,30 @@
     });
 
     // Nikkud toggle
-    document.getElementById("nikkud-switch").checked = state.showNikkud;
     document.getElementById("nikkud-switch").addEventListener("change", handleNikkudToggle);
 
     // Flashcard
     document.getElementById("flashcard").addEventListener("click", flipFlashcard);
     document.getElementById("btn-know").addEventListener("click", handleVocabKnow);
     document.getElementById("btn-learning").addEventListener("click", handleVocabLearning);
+    document.getElementById("vocab-speak").addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (state.currentVocabItem) speak(state.currentVocabItem.hebrew);
+    });
 
-    // Psalms flashcard
+    // Scripture flashcard
     document.getElementById("ps-flashcard").addEventListener("click", flipPsalmCard);
     document.getElementById("ps-btn-know").addEventListener("click", handlePsalmKnow);
     document.getElementById("ps-btn-learning").addEventListener("click", handlePsalmLearning);
+    document.getElementById("ps-speak").addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (state.currentPsalm) speak(state.currentPsalm.hebrew);
+    });
 
     // Letter recognition filter
     document.getElementById("lr-filter").addEventListener("change", function (e) {
       state.letterRecogFilter = e.target.value;
+      saveState();
       nextLetterRecog();
     });
 
@@ -776,8 +1103,22 @@
     populateCategories();
     document.getElementById("category-select").addEventListener("change", function (e) {
       state.currentCategory = e.target.value;
+      saveState();
       nextVocab();
     });
+
+    // Settings controls
+    document.getElementById("theme-select").addEventListener("change", handleThemeChange);
+    document.getElementById("mute-switch").addEventListener("change", handleMuteChange);
+    document.getElementById("settings-export").addEventListener("click", exportBackup);
+    document.getElementById("settings-import").addEventListener("change", function (e) {
+      importBackup(e.target.files && e.target.files[0]);
+      e.target.value = "";
+    });
+    document.getElementById("settings-reset").addEventListener("click", resetProgress);
+
+    // Reflect saved preferences into every control
+    syncControlsFromState();
 
     // Initial render
     renderHome();
