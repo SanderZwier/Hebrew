@@ -763,51 +763,205 @@ main {
   }
 }
 
-/* ─── Dark Mode (system preference) ──────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1a1a2e;
-    --bg-card: #252540;
-    --bg-header: #10101c;
-    --text: #e0ddd5;
-    --text-light: #9e9a90;
-    --text-on-dark: #e0ddd5;
-    --accent: #c9a882;
-    --accent-light: #ddc4a0;
-    --correct: #66bb6a;
-    --correct-bg: #1b3a26;
-    --incorrect: #ef5350;
-    --incorrect-bg: #3a1b1b;
-    --border: #3a3a52;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
-  }
+/* ─── Dark Mode ───────────────────────────────────────────── */
+/* Driven by data-theme on <html> (set by app.js / the pre-paint
+   inline script), so a manual Light/Dark override in Settings wins
+   over the system preference. "auto" resolves to one of these. */
+:root[data-theme="dark"] {
+  --bg: #1a1a2e;
+  --bg-card: #252540;
+  --bg-header: #10101c;
+  --text: #e0ddd5;
+  --text-light: #9e9a90;
+  --text-on-dark: #e0ddd5;
+  --accent: #c9a882;
+  --accent-light: #ddc4a0;
+  --correct: #66bb6a;
+  --correct-bg: #1b3a26;
+  --incorrect: #ef5350;
+  --incorrect-bg: #3a1b1b;
+  --border: #3a3a52;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
 
-  .slider {
-    background: #444;
-  }
+[data-theme="dark"] .slider {
+  background: #444;
+}
 
-  .score-correct {
-    color: #81c784;
-  }
+[data-theme="dark"] .score-correct {
+  color: #81c784;
+}
 
-  .mode-icon {
-    background: rgba(201, 168, 130, 0.12);
-  }
+[data-theme="dark"] .mode-icon {
+  background: rgba(201, 168, 130, 0.12);
+}
 
-  .problem-areas {
-    border-color: #5a2a2a;
-  }
+[data-theme="dark"] .problem-areas {
+  border-color: #5a2a2a;
+}
 
-  .quiz-choices .choice-btn:hover:not(:disabled) {
-    background: rgba(201, 168, 130, 0.08);
-  }
+[data-theme="dark"] .quiz-choices .choice-btn:hover:not(:disabled) {
+  background: rgba(201, 168, 130, 0.08);
+}
 
-  .ref-table tr:hover td {
-    background: rgba(201, 168, 130, 0.05);
-  }
+[data-theme="dark"] .ref-table tr:hover td {
+  background: rgba(201, 168, 130, 0.05);
+}
 
-  .category-filter select {
-    color-scheme: dark;
-  }
+[data-theme="dark"] .category-filter select,
+[data-theme="dark"] .settings-select {
+  color-scheme: dark;
+}
+
+/* ─── Pronunciation Buttons ───────────────────────────────── */
+/* Hidden unless a Hebrew voice was detected (body.speech-ready). */
+.speak-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  opacity: 0.65;
+  transition: var(--transition);
+}
+
+.speak-btn:hover {
+  opacity: 1;
+  background: rgba(139, 94, 60, 0.08);
+}
+
+body.speech-ready .speak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Speaker on a flashcard front sits in the top corner and must not
+   fill the flex column. */
+.flashcard-front .speak-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 1.4rem;
+  z-index: 2;
+}
+
+.ref-letter .speak-btn,
+.ref-example .speak-btn {
+  margin-left: 0.35rem;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+/* ─── Settings ────────────────────────────────────────────── */
+.settings-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.settings-container h2 {
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.setting-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.setting-desc {
+  font-size: 0.82rem;
+  color: var(--text-light);
+}
+
+.settings-select {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.settings-block {
+  margin-top: 1.5rem;
+}
+
+.settings-heading {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.settings-note,
+.settings-summary {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.settings-actions .btn {
+  flex: 0 1 auto;
+  text-align: center;
+}
+
+/* File-input label styled as a button */
+.settings-actions label.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-danger {
+  background: var(--incorrect-bg);
+  border-color: var(--incorrect);
+  color: var(--incorrect);
+}
+
+.btn-danger:hover {
+  background: var(--incorrect);
+  color: white;
+}
+
+.settings-status {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-top: 0.75rem;
+  min-height: 1.2rem;
 }

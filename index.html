@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblical Hebrew Practice</title>
+  <script>
+    // Set the theme before first paint to avoid a flash of the wrong
+    // colors. Reads the same key app.js writes ("hebrew-app-theme").
+    (function () {
+      try {
+        var pref = localStorage.getItem("hebrew-app-theme") || "auto";
+        var resolved = pref;
+        if (pref !== "light" && pref !== "dark") {
+          resolved = window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", resolved);
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,6 +47,7 @@
       <button class="nav-btn" data-section="letter-quiz">Quiz</button>
       <button class="nav-btn" data-section="psalms">Scripture</button>
       <button class="nav-btn" data-section="reference">Reference</button>
+      <button class="nav-btn" data-section="settings">Settings</button>
     </nav>
   </header>
 
@@ -130,6 +146,7 @@
         <div class="flashcard-wrapper">
           <div class="flashcard" id="flashcard">
             <div class="flashcard-front" id="flashcard-front">
+              <button class="speak-btn" type="button" id="vocab-speak" aria-label="Pronounce this word">🔊</button>
               <div class="hebrew-large" id="vocab-hebrew"></div>
               <p class="flip-hint">Tap to reveal</p>
             </div>
@@ -190,6 +207,7 @@
         <div class="flashcard-wrapper">
           <div class="flashcard" id="ps-flashcard">
             <div class="flashcard-front" id="ps-flashcard-front">
+              <button class="speak-btn" type="button" id="ps-speak" aria-label="Pronounce this verse">🔊</button>
               <div class="hebrew-sentence" id="ps-hebrew"></div>
               <p class="flip-hint">Tap to reveal</p>
             </div>
@@ -246,6 +264,53 @@
             </thead>
             <tbody id="ref-nikkud-body"></tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="section-settings" class="section">
+      <div class="settings-container">
+        <h2>Settings</h2>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <span class="setting-title">Theme</span>
+            <span class="setting-desc">Follow your device or force light or dark.</span>
+          </div>
+          <select id="theme-select" class="settings-select">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <span class="setting-title">Mute sounds</span>
+            <span class="setting-desc">Turn off the answer chimes.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="mute-switch">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-block">
+          <h3 class="settings-heading">Pronunciation</h3>
+          <p class="settings-note" id="settings-speech-note"></p>
+        </div>
+
+        <div class="settings-block">
+          <h3 class="settings-heading">Your data</h3>
+          <p class="settings-summary" id="settings-summary"></p>
+          <div class="settings-actions">
+            <button class="btn btn-secondary" type="button" id="settings-export">Export backup</button>
+            <label class="btn btn-secondary" for="settings-import">Import backup</label>
+            <input type="file" id="settings-import" accept="application/json,.json" hidden>
+            <button class="btn btn-danger" type="button" id="settings-reset">Reset progress</button>
+          </div>
+          <p class="settings-status" id="settings-status" aria-live="polite"></p>
         </div>
       </div>
     </section>
